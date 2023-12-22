@@ -4,5 +4,13 @@
   "login": "Login",
   "alert": "Alert",
   "close": "Close",
+  "confirm": "Confirm",
+  "error": "Error",
+  "networkError": "Network connection error",
+  "errorOccurred": "An error occurred",
+  "loginExpired": "Login session expired",
+  "uploadFailed": "Upload failed",
+  "noDataReturned": "No data returned",
+  "errGettingData": "Error when processing data",
   "connectionTimedOut": "Connection timed out"
 }

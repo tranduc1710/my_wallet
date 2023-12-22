@@ -18,7 +18,7 @@ extension ExList<O> on List<O>? {
   List<O> get getList => this is List<O> ? this! : <O>[];
 }
 
-extension ExDouble on double {
+extension ExNum on num {
   Future delayed([FutureOr Function()? computation]) async => await Future.delayed(
         Duration(milliseconds: (this * 1000).toInt()),
         computation,
@@ -27,23 +27,16 @@ extension ExDouble on double {
   double get w => MediaQuery.of(context).size.width * this;
 
   double get h => MediaQuery.of(context).size.height * this;
+
+  double get sp => screenUtil.setSp(this);
+
+  double get dm => screenUtil.diameter(this);
 }
 
 extension ExDoubleNull on double? {
   double get value => this ?? 0;
 
   String get valueString => "${this ?? 0}";
-}
-
-extension ExInt on int {
-  Future delayed([FutureOr Function()? computation]) async => await Future.delayed(
-        Duration(seconds: this),
-        computation,
-      );
-
-  double get w => MediaQuery.of(context).size.width * this;
-
-  double get h => MediaQuery.of(context).size.height * this;
 }
 
 extension ExIntNull on int? {
@@ -77,4 +70,13 @@ extension ExBuildContext on BuildContext {
   void back<T extends Object?>([T? result]) {
     Navigator.pop(this, result);
   }
+}
+
+extension ExWidget on Widget {
+  Widget wPadding([EdgeInsets? edgeInsets]) => Padding(
+        padding: edgeInsets ?? AppEdgeInsets.item,
+        child: this,
+      );
+
+  Widget wCenter() => Center(child: this);
 }

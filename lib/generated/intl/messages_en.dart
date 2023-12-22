@@ -25,8 +25,21 @@ class MessageLookup extends MessageLookupByLibrary {
         "alert": MessageLookupByLibrary.simpleMessage("Alert"),
         "appName": MessageLookupByLibrary.simpleMessage("Demo app"),
         "close": MessageLookupByLibrary.simpleMessage("Close"),
+        "confirm": MessageLookupByLibrary.simpleMessage("Confirm"),
         "connectionTimedOut":
             MessageLookupByLibrary.simpleMessage("Connection timed out"),
-        "login": MessageLookupByLibrary.simpleMessage("Login")
+        "errGettingData":
+            MessageLookupByLibrary.simpleMessage("Error when processing data"),
+        "error": MessageLookupByLibrary.simpleMessage("Error"),
+        "errorOccurred":
+            MessageLookupByLibrary.simpleMessage("An error occurred"),
+        "login": MessageLookupByLibrary.simpleMessage("Login"),
+        "loginExpired":
+            MessageLookupByLibrary.simpleMessage("Login session expired"),
+        "networkError":
+            MessageLookupByLibrary.simpleMessage("Network connection error"),
+        "noDataReturned":
+            MessageLookupByLibrary.simpleMessage("No data returned"),
+        "uploadFailed": MessageLookupByLibrary.simpleMessage("Upload failed")
       };
 }

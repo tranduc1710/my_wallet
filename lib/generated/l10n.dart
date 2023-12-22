@@ -90,6 +90,86 @@ class S {
     );
   }
 
+  /// `Confirm`
+  String get confirm {
+    return Intl.message(
+      'Confirm',
+      name: 'confirm',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Error`
+  String get error {
+    return Intl.message(
+      'Error',
+      name: 'error',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Network connection error`
+  String get networkError {
+    return Intl.message(
+      'Network connection error',
+      name: 'networkError',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `An error occurred`
+  String get errorOccurred {
+    return Intl.message(
+      'An error occurred',
+      name: 'errorOccurred',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Login session expired`
+  String get loginExpired {
+    return Intl.message(
+      'Login session expired',
+      name: 'loginExpired',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Upload failed`
+  String get uploadFailed {
+    return Intl.message(
+      'Upload failed',
+      name: 'uploadFailed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No data returned`
+  String get noDataReturned {
+    return Intl.message(
+      'No data returned',
+      name: 'noDataReturned',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Error when processing data`
+  String get errGettingData {
+    return Intl.message(
+      'Error when processing data',
+      name: 'errGettingData',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Connection timed out`
   String get connectionTimedOut {
     return Intl.message(

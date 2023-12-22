@@ -123,11 +123,11 @@ class AppRequest {
     var idRequest = DateTime.now().millisecondsSinceEpoch;
     var logRequest = "";
 
-    if (!headers.containsKey('Authorization') &&
-        Constant.session?.accessToken != null &&
-        hasToken) {
-      headers.addAll({"Authorization": "Bearer ${Constant.session?.accessToken}"});
-    }
+    // if (!headers.containsKey('Authorization') &&
+    //     Constant.session?.accessToken != null &&
+    //     hasToken) {
+    //   headers.addAll({"Authorization": "Bearer ${Constant.session?.accessToken}"});
+    // }
 
     switch (contentType) {
       case ContentType.formUrlEncoded:
@@ -214,45 +214,23 @@ class AppRequest {
       if (isTimeout) return;
 
       if (kDebugMode) {
-        kPrint("\n----------RESPONSE ID: $idRequest----------");
-        kPrint("STATUS CODE: ${res.statusCode}");
-        kPrint("DATA: ${res.data}");
-        kPrint("------------------------------\n");
+        kPrint("\n----------RESPONSE ID: $idRequest----------"
+            "\nSTATUS CODE: ${res.statusCode}"
+            "\nDATA: ${res.data}"
+            "\n------------------------------\n");
       }
 
       if (res.statusCode != null && res.statusCode! >= 200 && res.statusCode! < 400) {
         try {
-          if (res.data is String && res.data.toString().isNotEmpty) {
-            if (showError) PDialog().alert(title: kLanguage.alert, content: "${res.data}");
-          } else {
-            if (res.data is Map && (res.data as Map).containsKey("errorAction")) {
-              var json = res.data as Map;
-              var onErrorAction = json["errorAction"].toString();
-
-              switch (onErrorAction) {
-                case "DIALOG":
-                  if (json.containsKey("message")) {
-                    PDialog().alert(
-                      title: kLanguage.alert,
-                      content: json["message"],
-                      showClose: true,
-                      submit: kLanguage.confirm,
-                      onSubmit: () => onSubmit == null ? null : onSubmit(json),
-                    );
-                    return;
-                  }
-                  break;
-                case "MESSAGE":
-                  if (json.containsKey("message")) return BToast.show(json["message"]);
-                  break;
-              }
-            }
-
-            await onSuccess(res.data);
-          }
+          await onSuccess(res.data);
         } catch (e, s) {
           kPrint("REQUEST ID $idRequest: $e\n$s");
-          if (showError) PDialog().alert(title: kLanguage.error, content: kLanguage.errGettingData);
+          if (showError) {
+            AppDialog().alert(
+              title: AppLanguage.error,
+              content: AppLanguage.errGettingData,
+            );
+          }
           return;
         }
       } else {
@@ -261,15 +239,20 @@ class AppRequest {
             _onLoginExpires(showError, hasLogout);
             break;
           case 409:
-            if (showError)
-              PDialog().alert(
-                  title: kLanguage.error,
-                  content: "${res.data["message"] ?? kLanguage.noDataReturned}");
+            if (showError) {
+              AppDialog().alert(
+                title: AppLanguage.error,
+                content: "${res.data["message"] ?? AppLanguage.noDataReturned}",
+              );
+            }
             break;
           default:
-            if (showError)
-              PDialog().alert(
-                  title: kLanguage.error, content: "${res.data ?? kLanguage.noDataReturned}");
+            if (showError) {
+              AppDialog().alert(
+                title: AppLanguage.error,
+                content: "${res.data ?? AppLanguage.noDataReturned}",
+              );
+            }
             break;
         }
       }
@@ -288,6 +271,7 @@ class AppRequest {
     void Function(int progress)? onSendProgress,
     void Function(dynamic res)? onSuccess,
     void Function(String onError)? onError,
+    void Function()? onCancel,
     int timeOut = 60,
   }) async {
     final form = dio.FormData.fromMap(formData!);
@@ -312,11 +296,11 @@ class AppRequest {
       case TypeShowUpload.dialog:
         _progress = 0.rx;
 
-        Get.dialog(_layoutDialog()).then(
+        showDialog(context: context, builder: (context) => _layoutDialog()).then(
           (value) {
-            if (_progress.value < 100) {
+            if (_progress!.value < 100) {
               closeRequest(cancelToken!);
-              BToast.show(kLanguage.cancelUpload);
+              onCancel?.call();
             }
           },
         );
@@ -336,28 +320,27 @@ class AppRequest {
             : progress < 0
                 ? 0
                 : progress;
-        _progress.value = lastProgress;
-        if (lastProgress == 100) Get.back();
+        _progress!.value = lastProgress;
+        if (lastProgress == 100) context.back();
         if (onSendProgress != null) onSendProgress(lastProgress);
       },
     ).timeout(
       Duration(seconds: timeOut),
       onTimeout: () {
         isTimeOut = true;
-        printError(info: eTimeout);
+        kPrint(eTimeout);
         return dio.Response(requestOptions: RequestOptions(path: ''));
       },
     ).catchError((e, s) {
-      if (e is DioError && e.type == DioErrorType.cancel) {
+      if (e is DioException && e.type == DioExceptionType.cancel) {
         isCancel = true;
       }
 
-      printError(info: e.toString());
-      printError(info: s.toString());
+      kPrint("$e\n$s");
 
       closeRequest(cancelToken!);
 
-      onError!(e.toString());
+      onError?.call(e.toString());
     });
 
     if (isCancel) {
@@ -365,16 +348,16 @@ class AppRequest {
       return;
     }
 
-    kPrint("\n----------RESPONSE ID $idRequest----------");
-    kPrint("DATA: ${res.data}");
-    kPrint("------------------------------\n");
+    kPrint("\n----------RESPONSE ID $idRequest----------"
+        "\nDATA: ${res.data}"
+        "\n------------------------------\n");
 
     if (isTimeOut) return onError(eTimeout);
 
     if (res.statusCode! >= 200 && res.statusCode! < 400) {
       return onSuccess(res.data.toString().isEmpty ? "" : res.data);
     } else {
-      return onError(res.data.isEmpty ? kLanguage.uploadFailed : res.data);
+      return onError(res.data.isEmpty ? AppLanguage.uploadFailed : res.data);
     }
   }
 
@@ -385,7 +368,7 @@ class AppRequest {
           height: .3.w,
           decoration: BoxDecoration(
             color: Colors.white,
-            borderRadius: BorderRadius.circular(12.5),
+            borderRadius: BorderRadius.circular(Constant.radius),
           ),
           child: Column(
             mainAxisSize: MainAxisSize.min,
@@ -394,10 +377,9 @@ class AppRequest {
             children: <Widget>[
               const CircularProgressIndicator(),
               SizedBox(height: .02.w),
-              Obx(
-                () => Text(
-                  "${_progress.value}%",
-                ),
+              Text(
+                "${_progress!.value}%",
+                style: AppStyle.normal,
               ),
             ],
           ),
@@ -411,27 +393,26 @@ class AppRequest {
     Function(String onError) onError,
     bool hasLogout,
   ) async {
-    printError(info: e.toString());
-    printError(info: s.toString());
+    kPrint("$e\n$s");
 
     if (e.runtimeType is SocketException) {
-      if (showError) PDialog().alert(title: kLanguage.error, content: kLanguage.networkError);
-      onError(kLanguage.networkError);
+      if (showError) AppDialog().alert(title: AppLanguage.error, content: AppLanguage.networkError);
+      onError(AppLanguage.networkError);
       return;
     }
     if (e is dio.DioError && e.response?.statusCode != null && e.response?.statusCode == 401) {
       _onLoginExpires(showError, hasLogout);
       return;
     }
-    if (showError) PDialog().alert(title: kLanguage.error, content: kLanguage.errorOccurred);
-    onError(kLanguage.errorOccurred);
+    if (showError) AppDialog().alert(title: AppLanguage.error, content: AppLanguage.errorOccurred);
+    onError(AppLanguage.errorOccurred);
   }
 
   void _onTimeout(
     bool showError,
     Function(String onError) onError,
   ) {
-    if (showError) PDialog().alert(title: kLanguage.error, content: eTimeout);
+    if (showError) AppDialog().alert(title: AppLanguage.error, content: eTimeout);
 
     onError(eTimeout);
   }
@@ -440,14 +421,14 @@ class AppRequest {
     if (_count401 != 0) return;
     _count401 += _count401;
     if (hasLogout) {
-      await BPrefs.init();
-      BPrefs.clear();
-      BSwitchScreen.pushNameAndRemove('/');
+      // await BPrefs.init();
+      // BPrefs.clear();
+      // BSwitchScreen.pushNameAndRemove('/');
     }
     if (showError) {
-      PDialog().alert(title: kLanguage.alert, content: kLanguage.loginExpired);
+      AppDialog().alert(title: AppLanguage.alert, content: AppLanguage.loginExpired);
     } else {
-      BToast.show(kLanguage.loginExpired);
+      // BToast.show(AppLanguage.loginExpired);
     }
     _count401 -= _count401;
   }
