@@ -2,7 +2,7 @@ part of 'base.dart';
 
 int _count401 = 0;
 
-class AppRequest {
+class AppRequest<O> {
   final Dio _dio = Dio();
   BehaviorSubject<int>? _progress;
 
@@ -13,8 +13,9 @@ class AppRequest {
     if (!cancelToken.isCancelled) cancelToken.cancel();
   }
 
-  Future<void> get(
-    String url, {
+  Future<O?> get(
+    String path, {
+    String? url,
     Map<String, String>? headers,
     Duration? timeout,
     bool showError = true,
@@ -22,27 +23,22 @@ class AppRequest {
     bool hasLogout = true,
     CancelToken? cancelToken,
     ContentType contentType = ContentType.formUrlEncoded,
-    Function(dynamic res)? onSuccess,
-    void Function(String onError)? onError,
-    void Function(dynamic res)? onSubmit,
   }) async =>
       await _request(
         type: RequestType.get,
-        url: url,
+        url: (url ?? Constant.pathApi) + path,
         showError: showError,
         hasToken: hasToken,
         headers: headers,
         cancelToken: cancelToken,
         contentType: contentType,
         hasLogout: hasLogout,
-        onSuccess: onSuccess,
-        onError: onError,
-        onSubmit: onSubmit,
         timeout: timeout,
       );
 
-  Future<void> post(
-    String url, {
+  Future<O?> post(
+    String path, {
+    String? url,
     Map<String, dynamic>? body,
     Map<String, String>? headers,
     Duration? timeout,
@@ -51,13 +47,10 @@ class AppRequest {
     bool hasLogout = true,
     CancelToken? cancelToken,
     ContentType contentType = ContentType.formUrlEncoded,
-    Function(dynamic res)? onSuccess,
-    void Function(String onError)? onError,
-    void Function(dynamic res)? onSubmit,
   }) async =>
       await _request(
         type: RequestType.post,
-        url: url,
+        url: (url ?? Constant.pathApi) + path,
         showError: showError,
         hasToken: hasToken,
         hasLogout: hasLogout,
@@ -65,14 +58,12 @@ class AppRequest {
         body: body,
         cancelToken: cancelToken,
         contentType: contentType,
-        onSuccess: onSuccess,
-        onError: onError,
-        onSubmit: onSubmit,
         timeout: timeout,
       );
 
-  Future<void> delete(
-    String url, {
+  Future<O?> delete(
+    String path, {
+    String? url,
     Map<String, dynamic>? body,
     Map<String, String>? headers,
     Duration? timeout,
@@ -81,13 +72,10 @@ class AppRequest {
     bool hasLogout = true,
     CancelToken? cancelToken,
     ContentType contentType = ContentType.formUrlEncoded,
-    Function(dynamic res)? onSuccess,
-    void Function(String onError)? onError,
-    void Function(dynamic res)? onSubmit,
   }) async =>
       await _request(
         type: RequestType.delete,
-        url: url,
+        url: (url ?? Constant.pathApi) + path,
         showError: showError,
         hasToken: hasToken,
         hasLogout: hasLogout,
@@ -95,9 +83,6 @@ class AppRequest {
         body: body,
         cancelToken: cancelToken,
         contentType: contentType,
-        onSuccess: onSuccess,
-        onError: onError,
-        onSubmit: onSubmit,
         timeout: timeout,
       );
 
@@ -112,22 +97,17 @@ class AppRequest {
     bool hasLogout = true,
     CancelToken? cancelToken,
     ContentType contentType = ContentType.formUrlEncoded,
-    Function(dynamic res)? onSuccess,
-    void Function(String onError)? onError,
-    void Function(dynamic res)? onSubmit,
   }) async {
     headers ??= {};
-    onSuccess ??= (_) async => _;
-    onError ??= (_) => _;
     cancelToken ??= CancelToken();
     var idRequest = DateTime.now().millisecondsSinceEpoch;
     var logRequest = "";
 
-    // if (!headers.containsKey('Authorization') &&
-    //     Constant.session?.accessToken != null &&
-    //     hasToken) {
-    //   headers.addAll({"Authorization": "Bearer ${Constant.session?.accessToken}"});
-    // }
+    if (!headers.containsKey('Authorization') &&
+        Constant.session?.accessToken != null &&
+        hasToken) {
+      headers["Authorization"] = "Bearer ${Constant.session?.accessToken}";
+    }
 
     switch (contentType) {
       case ContentType.formUrlEncoded:
@@ -201,7 +181,7 @@ class AppRequest {
         timeout ?? Constant.timeRequest,
         onTimeout: () {
           isTimeout = true;
-          _onTimeout(showError, onError!);
+          _onTimeout(showError);
           kPrint("REQUEST ID $idRequest TIME OUT");
           return dio.Response(requestOptions: RequestOptions(path: ''));
         },
@@ -222,7 +202,15 @@ class AppRequest {
 
       if (res.statusCode != null && res.statusCode! >= 200 && res.statusCode! < 400) {
         try {
-          await onSuccess(res.data);
+          if (res.data is O) {
+            return res.data;
+          } else if (showError) {
+            AppDialog().alert(
+              title: AppLanguage.error,
+              content: AppLanguage.errGettingData,
+            );
+          }
+          return;
         } catch (e, s) {
           kPrint("REQUEST ID $idRequest: $e\n$s");
           if (showError) {
@@ -238,14 +226,6 @@ class AppRequest {
           case 401:
             _onLoginExpires(showError, hasLogout);
             break;
-          case 409:
-            if (showError) {
-              AppDialog().alert(
-                title: AppLanguage.error,
-                content: "${res.data["message"] ?? AppLanguage.noDataReturned}",
-              );
-            }
-            break;
           default:
             if (showError) {
               AppDialog().alert(
@@ -258,7 +238,7 @@ class AppRequest {
       }
     } catch (e, s) {
       closeRequest(cancelToken);
-      _catchError(e, s, showError, onError, hasLogout);
+      _catchError(e, s, showError, hasLogout);
     }
   }
 
@@ -390,31 +370,25 @@ class AppRequest {
     var e,
     StackTrace s,
     bool showError,
-    Function(String onError) onError,
     bool hasLogout,
   ) async {
     kPrint("$e\n$s");
 
     if (e.runtimeType is SocketException) {
       if (showError) AppDialog().alert(title: AppLanguage.error, content: AppLanguage.networkError);
-      onError(AppLanguage.networkError);
       return;
     }
-    if (e is dio.DioError && e.response?.statusCode != null && e.response?.statusCode == 401) {
+    if (e is dio.DioException && e.response?.statusCode != null && e.response?.statusCode == 401) {
       _onLoginExpires(showError, hasLogout);
       return;
     }
     if (showError) AppDialog().alert(title: AppLanguage.error, content: AppLanguage.errorOccurred);
-    onError(AppLanguage.errorOccurred);
   }
 
   void _onTimeout(
     bool showError,
-    Function(String onError) onError,
   ) {
     if (showError) AppDialog().alert(title: AppLanguage.error, content: eTimeout);
-
-    onError(eTimeout);
   }
 
   void _onLoginExpires(bool showError, bool hasLogout) async {

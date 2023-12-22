@@ -1,13 +1,8 @@
-import 'package:base_flutter/data/data_sources/login_data.dart';
-import 'package:base_flutter/data/models/session_model.dart';
+import '../../domain/entities/session.dart';
+import '../../domain/entities/user_info.dart';
 
-class LoginRepo implements LoginDataSource{
-  final LoginDataSource dataSource;
+abstract class LoginRepo {
+  Future<Session> getSession({required String username, required String password});
 
-  LoginRepo(this.dataSource);
-
-  @override
-  Future<SessionModel> getSession({required String username, required String password}) async {
-    final res = await
-  }
+  Future<UserInfo> getUserInfo();
 }

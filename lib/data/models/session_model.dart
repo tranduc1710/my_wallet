@@ -1,23 +1,6 @@
-class SessionModel {
-  String? accessToken;
-  int? expiresIn;
-  int? refreshExpiresIn;
-  String? refreshToken;
-  String? tokenType;
-  int? notBeforePolicy;
-  String? sessionState;
-  String? scope;
+import 'package:base_flutter/domain/entities/session.dart';
 
-  SessionModel(
-      {this.accessToken,
-      this.expiresIn,
-      this.refreshExpiresIn,
-      this.refreshToken,
-      this.tokenType,
-      this.notBeforePolicy,
-      this.sessionState,
-      this.scope});
-
+class SessionModel extends Session {
   SessionModel.fromJson(Map<String, dynamic> json) {
     accessToken = json['access_token'];
     expiresIn = json['expires_in'];
