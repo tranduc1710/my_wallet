@@ -1,0 +1,7 @@
+{
+  "@@locale": "vi",
+  "appName": "Demo app",
+  "login": "Đăng nhập",
+  "alert": "Thông báo",
+  "connectionTimedOut": "Kết nối hết hạn"
+}

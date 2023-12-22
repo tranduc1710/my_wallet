@@ -14,10 +14,10 @@ Project này sẽ dựa trên cấu trúc Clean Architecture kết hợp với R
 - Mô tả cấu trúc thư mục lib:
 
     2.1 domain
-  - Thư mục này sẽ chứa các request độc lập. Chỉ nhận nhiệm vụ giao tiếp API và khai báo đối tượng
+  - Thư mục này sẽ chứa các request API và khai báo đối tượng, xử lý với dữ liệu trả về
     2.1.1 entities
-    - Thư mục này khai báo các Object model
+    - Thư mục này khai báo các Object model của API
     2.1.2 repositories
-    - Thư mục này khai báo hàm để giao tiếp với API trong thư mục data/repositories
+    - Thư mục này khai báo hàm interface để giao tiếp với API trong thư mục data/repositories
     2.1.3 use_cases
     - Thư mục này khai báo các hàm để giao tiếp với repositories và 
