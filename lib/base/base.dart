@@ -31,7 +31,7 @@ void kPrint(Object? object) {
     log(
       "$object",
       time: DateTime.now(),
-      name: AppLanguage.appName,
+      name: 'LOG',
     );
   }
 }

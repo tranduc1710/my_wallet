@@ -3,7 +3,7 @@ part of 'utils.dart';
 abstract class Constant {
   static final GlobalKey<NavigatorState> navigatorKey = GlobalKey();
 
-  static SessionModel? session;
+  static SessionEntity? session;
 
   static String get pathApi => "https://dms.smac.com.vn:8440/";
 

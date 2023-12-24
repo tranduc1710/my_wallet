@@ -17,6 +17,9 @@ dependencies:
   intl: ^0.18.1
   flutter_localizations:
     sdk: flutter
+  freezed_annotation: ^2.4.1
+  json_annotation: ^4.8.1
+  go_router: ^13.0.0
   # pub other
 
 dev_dependencies:
@@ -24,6 +27,12 @@ dev_dependencies:
     sdk: flutter
 
   flutter_lints: ^2.0.0
+  # pub base: flutter pub run build_runner build
+  build_runner: ^2.4.7
+  freezed: ^2.4.6
+  json_serializable: ^6.7.1
+  go_router_builder: ^2.4.0
+  # pub other
 
 flutter_intl:
   enabled: true
@@ -40,15 +49,15 @@ flutter:
   fonts:
     - family: OpenSans
       fonts:
-        - asset: assets/font/OpenSans-Bold.ttf
-        - asset: assets/font/OpenSans-BoldItalic.ttf
-        - asset: assets/font/OpenSans-ExtraBold.ttf
-        - asset: assets/font/OpenSans-ExtraBoldItalic.ttf
-        - asset: assets/font/OpenSans-Italic.ttf
-        - asset: assets/font/OpenSans-Light.ttf
-        - asset: assets/font/OpenSans-LightItalic.ttf
-        - asset: assets/font/OpenSans-Medium.ttf
-        - asset: assets/font/OpenSans-MediumItalic.ttf
-        - asset: assets/font/OpenSans-Regular.ttf
-        - asset: assets/font/OpenSans-SemiBold.ttf
-        - asset: assets/font/OpenSans-SemiBoldItalic.ttf
+        - asset: assets/fonts/OpenSans-Bold.ttf
+        - asset: assets/fonts/OpenSans-BoldItalic.ttf
+        - asset: assets/fonts/OpenSans-ExtraBold.ttf
+        - asset: assets/fonts/OpenSans-ExtraBoldItalic.ttf
+        - asset: assets/fonts/OpenSans-Italic.ttf
+        - asset: assets/fonts/OpenSans-Light.ttf
+        - asset: assets/fonts/OpenSans-LightItalic.ttf
+        - asset: assets/fonts/OpenSans-Medium.ttf
+        - asset: assets/fonts/OpenSans-MediumItalic.ttf
+        - asset: assets/fonts/OpenSans-Regular.ttf
+        - asset: assets/fonts/OpenSans-SemiBold.ttf
+        - asset: assets/fonts/OpenSans-SemiBoldItalic.ttf

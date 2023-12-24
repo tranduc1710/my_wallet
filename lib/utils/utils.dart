@@ -1,6 +1,7 @@
 import 'package:base_flutter/base/base.dart';
-import 'package:base_flutter/data/models/session_model.dart';
 import 'package:flutter/material.dart';
+
+import '../domain/entities/session_entity.dart';
 
 part 'color.dart';
 part 'constant.dart';

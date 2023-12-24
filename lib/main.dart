@@ -1,10 +1,11 @@
-import 'package:base_flutter/base/base.dart';
+import 'package:base_flutter/presentation/routers/routers.dart';
+import 'package:base_flutter/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:go_router/go_router.dart';
 
 import 'generated/l10n.dart';
-import 'utils/utils.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -22,9 +23,12 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: AppLanguage.appName,
-      navigatorKey: Constant.navigatorKey,
+    return MaterialApp.router(
+      title: "Demo project",
+      routerConfig: GoRouter(
+        routes: $appRoutes,
+        navigatorKey: Constant.navigatorKey,
+      ),
       localizationsDelegates: const [
         S.delegate,
         GlobalMaterialLocalizations.delegate,
@@ -36,12 +40,6 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         fontFamily: 'OpenSans',
         useMaterial3: false,
-      ),
-      home: MediaQuery(
-        data: MediaQuery.of(context).copyWith(
-          textScaler: const TextScaler.linear(1.0),
-        ),
-        child: const SizedBox(),
       ),
     );
   }

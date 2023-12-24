@@ -1,8 +1,8 @@
-import '../../domain/entities/session.dart';
-import '../../domain/entities/user_info.dart';
+import 'package:base_flutter/domain/entities/session_entity.dart';
+import 'package:base_flutter/domain/entities/user_entity.dart';
 
 abstract class LoginRepo {
-  Future<Session> getSession({required String username, required String password});
+  Future<SessionEntity> getSession({required String username, required String password});
 
-  Future<UserInfo> getUserInfo();
+  Future<UserEntity> getUserInfo();
 }

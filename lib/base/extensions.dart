@@ -24,9 +24,9 @@ extension ExNum on num {
         computation,
       );
 
-  double get w => MediaQuery.of(context).size.width * this;
+  double get w => screenUtil.setWidth(this);
 
-  double get h => MediaQuery.of(context).size.height * this;
+  double get h => screenUtil.setHeight(this);
 
   double get sp => screenUtil.setSp(this);
 
@@ -70,6 +70,8 @@ extension ExBuildContext on BuildContext {
   void back<T extends Object?>([T? result]) {
     Navigator.pop(this, result);
   }
+
+  S get language => S.of(this);
 }
 
 extension ExWidget on Widget {
@@ -79,4 +81,9 @@ extension ExWidget on Widget {
       );
 
   Widget wCenter() => Center(child: this);
+
+  Widget onTap(Function() onTap) => GestureDetector(
+        onTap: onTap,
+        child: this,
+      );
 }

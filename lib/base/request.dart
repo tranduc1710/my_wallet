@@ -6,8 +6,6 @@ class AppRequest<O> {
   final Dio _dio = Dio();
   BehaviorSubject<int>? _progress;
 
-  String eTimeout = AppLanguage.connectionTimedOut;
-
   void closeRequest(CancelToken cancelToken) {
     kPrint("CANCEL REQUEST");
     if (!cancelToken.isCancelled) cancelToken.cancel();
@@ -308,7 +306,7 @@ class AppRequest<O> {
       Duration(seconds: timeOut),
       onTimeout: () {
         isTimeOut = true;
-        kPrint(eTimeout);
+        kPrint(AppLanguage.connectionTimedOut);
         return dio.Response(requestOptions: RequestOptions(path: ''));
       },
     ).catchError((e, s) {
@@ -332,7 +330,7 @@ class AppRequest<O> {
         "\nDATA: ${res.data}"
         "\n------------------------------\n");
 
-    if (isTimeOut) return onError(eTimeout);
+    if (isTimeOut) return onError(AppLanguage.connectionTimedOut);
 
     if (res.statusCode! >= 200 && res.statusCode! < 400) {
       return onSuccess(res.data.toString().isEmpty ? "" : res.data);
@@ -375,20 +373,35 @@ class AppRequest<O> {
     kPrint("$e\n$s");
 
     if (e.runtimeType is SocketException) {
-      if (showError) AppDialog().alert(title: AppLanguage.error, content: AppLanguage.networkError);
+      if (showError) {
+        AppDialog().alert(
+          title: AppLanguage.error,
+          content: AppLanguage.networkError,
+        );
+      }
       return;
     }
     if (e is dio.DioException && e.response?.statusCode != null && e.response?.statusCode == 401) {
       _onLoginExpires(showError, hasLogout);
       return;
     }
-    if (showError) AppDialog().alert(title: AppLanguage.error, content: AppLanguage.errorOccurred);
+    if (showError) {
+      AppDialog().alert(
+        title: AppLanguage.error,
+        content: AppLanguage.errorOccurred,
+      );
+    }
   }
 
   void _onTimeout(
     bool showError,
   ) {
-    if (showError) AppDialog().alert(title: AppLanguage.error, content: eTimeout);
+    if (showError) {
+      AppDialog().alert(
+        title: AppLanguage.error,
+        content: AppLanguage.connectionTimedOut,
+      );
+    }
   }
 
   void _onLoginExpires(bool showError, bool hasLogout) async {

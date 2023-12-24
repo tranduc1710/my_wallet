@@ -1,16 +1,16 @@
 import 'package:base_flutter/base/base.dart';
-import 'package:base_flutter/data/models/session_model.dart';
-import 'package:base_flutter/data/models/user_info_model.dart';
 import 'package:base_flutter/data/repositories/login_repo.dart';
+import 'package:base_flutter/domain/entities/user_entity.dart';
 import 'package:flutter/foundation.dart';
 
+import '../../domain/entities/session_entity.dart';
 import '../../utils/utils.dart';
 
 class LoginDataSource implements LoginRepo {
   AppRequest request = AppRequest();
 
   @override
-  Future<SessionModel> getSession({required String username, required String password}) async {
+  Future<SessionEntity> getSession({required String username, required String password}) async {
     final res = await request.post(
       'auth/realms/test/protocol/openid-connect/token',
       body: {
@@ -22,11 +22,11 @@ class LoginDataSource implements LoginRepo {
       },
     );
 
-    return compute((message) => SessionModel.fromJson(message), res);
+    return compute((message) => SessionEntity.fromJson(message), res);
   }
 
   @override
-  Future<UserInfoModel> getUserInfo() async {
+  Future<UserEntity> getUserInfo() async {
     final res = await request.post(
       'dms-service/users/current',
       body: {
@@ -34,6 +34,6 @@ class LoginDataSource implements LoginRepo {
         "currLng": 1.toString(),
       },
     );
-    return compute((message) => UserInfoModel.fromJson(message), res);
+    return compute((message) => UserEntity.fromJson(message), res);
   }
 }
