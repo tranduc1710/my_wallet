@@ -56,9 +56,14 @@ class _AppButtonState extends State<AppButton> with TickerProviderStateMixin {
             key: key,
             onPressed: () async {
               FocusScope.of(context).requestFocus(FocusNode());
+              if (_rxLoading.value == true) return;
               if (widget.onPressed != null) {
                 _rxLoading.value = true;
-                await widget.onPressed!();
+                try {
+                  await widget.onPressed!();
+                } catch (e, s) {
+                  kPrint("$e\n$s");
+                }
                 _rxLoading.value = false;
               }
             },

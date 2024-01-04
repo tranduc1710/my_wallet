@@ -51,7 +51,7 @@ class AppDialog {
                   children: [
                     Text(
                       title,
-                      style: AppStyle.s20.copyWith(fontWeight: FontWeight.bold),
+                      style: AppStyle.s16.copyWith(fontWeight: FontWeight.bold),
                     ).wPadding(AppEdgeInsets.bottom * 2),
                     const Line(),
                   ],

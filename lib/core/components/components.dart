@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:loading_indicator/loading_indicator.dart';
+import 'package:synchronized/synchronized.dart';
 
 import '../base/base.dart';
 import '../utils/utils.dart';

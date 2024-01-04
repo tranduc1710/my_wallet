@@ -34,6 +34,7 @@ class _DemoViewState extends State<DemoView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
@@ -41,17 +42,17 @@ class _DemoViewState extends State<DemoView> {
           Text(widget.title).onTap(controller.nextPage),
           const Text("").onTap(controller.nextPage).shimmer(controller.rxLoading),
           AppTextField(
-            controller: controller.tfController,
-          ).wPadding(AppEdgeInsets.screen),
-          const AppTextField(
-            enabled: false,
-          ).wPadding(AppEdgeInsets.screen),
+            controller: controller.tfEmail,
+          ),
+          AppTextField(
+            controller: controller.tfPassword,
+          ),
           AppButton(
-            onPressed: () async => 3.delayed(),
-            text: "Back",
+            onPressed: controller.login,
+            text: "Login",
           ),
         ],
-      ),
+      ).wPadding(AppEdgeInsets.screen),
     );
   }
 }
