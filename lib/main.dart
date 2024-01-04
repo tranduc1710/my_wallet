@@ -1,9 +1,9 @@
-import 'package:base_flutter/config/routers/routers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:go_router/go_router.dart';
 
+import 'config/routers/_routers.dart';
 import 'core/base/base.dart';
 import 'core/utils/utils.dart';
 import 'generated/l10n.dart';
@@ -16,11 +16,19 @@ void main() {
       statusBarIconBrightness: Brightness.light,
     ),
   );
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  MyApp({super.key});
+
+  final router = GoRouter(
+    routes: $appRoutes,
+    navigatorKey: Constant.navigatorKey,
+    redirect: (context, state) {
+      return null;
+    },
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -28,13 +36,9 @@ class MyApp extends StatelessWidget {
 
     return MaterialApp.router(
       title: "Demo project",
-      routerConfig: GoRouter(
-        routes: AppRouter.router,
-        navigatorKey: Constant.navigatorKey,
-        redirect: (context, state) {
-          return null;
-        },
-      ),
+      routerDelegate: router.routerDelegate,
+      routeInformationParser: router.routeInformationParser,
+      routeInformationProvider: router.routeInformationProvider,
       localizationsDelegates: const [
         S.delegate,
         GlobalMaterialLocalizations.delegate,

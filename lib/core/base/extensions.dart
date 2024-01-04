@@ -24,9 +24,9 @@ extension ExNum on num {
         computation,
       );
 
-  double get w => screenUtil.setWidth(this);
+  double get w => screenUtil.screenWidth * this;
 
-  double get h => screenUtil.setHeight(this);
+  double get h => screenUtil.screenHeight * this;
 
   double get sp => screenUtil.setSp(this);
 
@@ -89,4 +89,25 @@ extension ExWidget on Widget {
         onTap: onTap,
         child: this,
       );
+
+  Widget shimmer(BehaviorSubject<bool> loading) {
+    return StreamBuilder<bool>(
+        stream: loading.stream,
+        initialData: true,
+        builder: (context, snapshot) {
+          if (snapshot.data != false) {
+            return Shimmer.fromColors(
+              baseColor: Colors.grey.shade300,
+              highlightColor: Colors.grey.shade100,
+              child: Container(
+                color: Colors.white,
+                width: max(.3.w, Random().nextDouble().w),
+                child: this,
+              ),
+            );
+          }
+
+          return this;
+        });
+  }
 }

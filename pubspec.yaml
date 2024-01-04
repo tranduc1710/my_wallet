@@ -24,6 +24,7 @@ dependencies:
   get_it: ^7.6.4
   flutter_svg: ^2.0.9
   cached_network_image: ^3.3.0
+  loading_indicator: ^3.1.1
   # pub other
 
 dev_dependencies:
@@ -35,6 +36,7 @@ dev_dependencies:
   build_runner: ^2.4.7
   freezed: ^2.4.6
   json_serializable: ^6.7.1
+  go_router_builder: ^2.4.1
   # pub other
 
 flutter_intl:

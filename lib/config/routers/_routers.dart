@@ -1,22 +1,15 @@
-import 'package:base_flutter/feature/demo/presentation/pages/demo_view.dart';
+import 'package:base_flutter/core/base/base.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-mixin AppRouter {
-  static final router = [
-    GoRoute(
-      path: '/',
-      builder: (context, state) => const DemoView(title: "Init"),
-    ),
-    GoRoute(
-      path: '/home',
-      pageBuilder: (context, state) => const DemoView(title: "Home").addTransitionAnimation(state),
-    ),
-  ];
-}
+import '../../src/presentation/pages/demo/demo.page.dart';
 
-extension _ExWidget on Widget {
-  CustomTransitionPage addTransitionAnimation(GoRouterState state) {
+part 'unlogin.dart';
+part 'product.dart';
+part '_routers.g.dart';
+
+extension ExWidget on Widget {
+  CustomTransitionPage _addTransitionAnimation(GoRouterState state) {
     return CustomTransitionPage(
       child: this,
       transitionsBuilder: (context, animation, secondaryAnimation, child) => SlideTransition(
