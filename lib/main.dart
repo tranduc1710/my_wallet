@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:go_router/go_router.dart';
@@ -46,7 +45,8 @@ class MyApp extends StatelessWidget {
         GlobalCupertinoLocalizations.delegate,
       ],
       supportedLocales: S.delegate.supportedLocales,
-      locale: const Locale.fromSubtags(languageCode: 'vi'),
+      scaffoldMessengerKey: Constant.scaffoldMessengerKey,
+      locale: const Locale.fromSubtags(languageCode: 'en'),
       theme: ThemeData(
         fontFamily: 'OpenSans',
         useMaterial3: false,

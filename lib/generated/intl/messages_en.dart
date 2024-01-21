@@ -20,25 +20,32 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'en';
 
+  static String m0(value) => "Tổng ${value}đ";
+
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
-        "alert": MessageLookupByLibrary.simpleMessage("Alert"),
-        "close": MessageLookupByLibrary.simpleMessage("Close"),
-        "confirm": MessageLookupByLibrary.simpleMessage("Confirm"),
+        "add": MessageLookupByLibrary.simpleMessage("Thêm"),
+        "addSpend": MessageLookupByLibrary.simpleMessage("Thêm chi tiêu"),
+        "alert": MessageLookupByLibrary.simpleMessage("Thông báo"),
+        "close": MessageLookupByLibrary.simpleMessage("Đóng"),
+        "confirm": MessageLookupByLibrary.simpleMessage("Xác nhận"),
         "connectionTimedOut":
             MessageLookupByLibrary.simpleMessage("Connection timed out"),
         "errGettingData":
             MessageLookupByLibrary.simpleMessage("Error when processing data"),
-        "error": MessageLookupByLibrary.simpleMessage("Error"),
+        "error": MessageLookupByLibrary.simpleMessage("Lỗi"),
         "errorOccurred":
             MessageLookupByLibrary.simpleMessage("An error occurred"),
-        "login": MessageLookupByLibrary.simpleMessage("Login"),
+        "home": MessageLookupByLibrary.simpleMessage("Trang chủ"),
+        "login": MessageLookupByLibrary.simpleMessage("Đăng nhập"),
         "loginExpired":
             MessageLookupByLibrary.simpleMessage("Login session expired"),
         "networkError":
             MessageLookupByLibrary.simpleMessage("Network connection error"),
         "noDataReturned":
             MessageLookupByLibrary.simpleMessage("No data returned"),
+        "remove": MessageLookupByLibrary.simpleMessage("Trừ"),
+        "total": m0,
         "uploadFailed": MessageLookupByLibrary.simpleMessage("Upload failed")
       };
 }

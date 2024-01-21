@@ -5,13 +5,29 @@ extension ExObject<O> on O {
 }
 
 extension ExObjectNull on Object? {
-  bool getBool([bool value = false]) => this is bool? ? (this as bool?) ?? value : value;
+  bool getBool([bool value = false]) => this is bool?
+      ? (this as bool?) ?? value
+      : this is String?
+          ? (this as String?).getBool()
+          : value;
 
-  double getDouble([double value = 0]) => this is double? ? (this as double?) ?? value : value;
+  double getDouble([double value = 0]) => this is double?
+      ? (this as double?) ?? value
+      : this is String?
+          ? (this as String?).getDouble()
+          : value;
 
-  int getInt([int value = 0]) => this is int? ? (this as int?) ?? value : value;
+  int getInt([int value = 0]) => this is int?
+      ? (this as int?) ?? value
+      : this is String?
+          ? (this as String?).getInt()
+          : value;
 
-  String getString([String value = '']) => this is String? ? (this as String?) ?? value : value;
+  String getString([String value = '']) => this is String?
+      ? (this as String?) ?? value
+      : this is String?
+          ? (this as String?).getString()
+          : value;
 }
 
 extension ExList<O> on List<O>? {
@@ -63,6 +79,12 @@ extension ExFunction on Function() {
 extension ExBehaviorSubject on BehaviorSubject {
   void refresh() {
     add(value);
+  }
+}
+
+extension ExBehaviorSubjectBool on BehaviorSubject<bool> {
+  void toggle() {
+    value = !value;
   }
 }
 

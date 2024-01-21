@@ -16,6 +16,8 @@ import '../../generated/l10n.dart';
 import '../components/components.dart';
 import '../utils/utils.dart';
 
+export 'package:flutter/material.dart';
+
 part 'extensions.dart';
 part 'request.dart';
 part 'screen_utils.dart';

@@ -50,50 +50,50 @@ class S {
     return Localizations.of<S>(context, S);
   }
 
-  /// `Login`
+  /// `Đăng nhập`
   String get login {
     return Intl.message(
-      'Login',
+      'Đăng nhập',
       name: 'login',
       desc: '',
       args: [],
     );
   }
 
-  /// `Alert`
+  /// `Thông báo`
   String get alert {
     return Intl.message(
-      'Alert',
+      'Thông báo',
       name: 'alert',
       desc: '',
       args: [],
     );
   }
 
-  /// `Close`
+  /// `Đóng`
   String get close {
     return Intl.message(
-      'Close',
+      'Đóng',
       name: 'close',
       desc: '',
       args: [],
     );
   }
 
-  /// `Confirm`
+  /// `Xác nhận`
   String get confirm {
     return Intl.message(
-      'Confirm',
+      'Xác nhận',
       name: 'confirm',
       desc: '',
       args: [],
     );
   }
 
-  /// `Error`
+  /// `Lỗi`
   String get error {
     return Intl.message(
-      'Error',
+      'Lỗi',
       name: 'error',
       desc: '',
       args: [],
@@ -167,6 +167,60 @@ class S {
       name: 'connectionTimedOut',
       desc: '',
       args: [],
+    );
+  }
+
+  /// `Trang chủ`
+  String get home {
+    return Intl.message(
+      'Trang chủ',
+      name: 'home',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Thêm chi tiêu`
+  String get addSpend {
+    return Intl.message(
+      'Thêm chi tiêu',
+      name: 'addSpend',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Thêm`
+  String get add {
+    return Intl.message(
+      'Thêm',
+      name: 'add',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Trừ`
+  String get remove {
+    return Intl.message(
+      'Trừ',
+      name: 'remove',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Tổng {value}đ`
+  String total(int value) {
+    final NumberFormat valueNumberFormat =
+        NumberFormat.decimalPattern(Intl.getCurrentLocale());
+    final String valueString = valueNumberFormat.format(value);
+
+    return Intl.message(
+      'Tổng $valueStringđ',
+      name: 'total',
+      desc: '',
+      args: [valueString],
     );
   }
 }

@@ -1,15 +1,28 @@
 {
   "@@locale": "en",
-  "login": "Login",
-  "alert": "Alert",
-  "close": "Close",
-  "confirm": "Confirm",
-  "error": "Error",
+  "login": "Đăng nhập",
+  "alert": "Thông báo",
+  "close": "Đóng",
+  "confirm": "Xác nhận",
+  "error": "Lỗi",
   "networkError": "Network connection error",
   "errorOccurred": "An error occurred",
   "loginExpired": "Login session expired",
   "uploadFailed": "Upload failed",
   "noDataReturned": "No data returned",
   "errGettingData": "Error when processing data",
-  "connectionTimedOut": "Connection timed out"
+  "connectionTimedOut": "Connection timed out",
+  "home": "Trang chủ",
+  "addSpend": "Thêm chi tiêu",
+  "add": "Thêm",
+  "remove": "Trừ",
+  "total": "Tổng {value}đ",
+  "@total": {
+    "placeholders": {
+      "value": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  }
 }

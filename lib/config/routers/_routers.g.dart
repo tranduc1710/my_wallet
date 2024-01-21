@@ -7,11 +7,75 @@ part of '_routers.dart';
 // **************************************************************************
 
 List<RouteBase> get $appRoutes => [
+      $homeRoute,
       $splashRoute,
-      $loginRoute,
-      $listProductRoute,
-      $detailProductRoute,
     ];
+
+RouteBase get $homeRoute => GoRouteData.$route(
+      path: '/home',
+      factory: $HomeRouteExtension._fromState,
+      routes: [
+        GoRouteData.$route(
+          path: 'addSpend',
+          factory: $AddSpendRouteExtension._fromState,
+        ),
+        GoRouteData.$route(
+          path: 'removeSpend',
+          factory: $RemoveSpendRouteExtension._fromState,
+        ),
+      ],
+    );
+
+extension $HomeRouteExtension on HomeRoute {
+  static HomeRoute _fromState(GoRouterState state) => const HomeRoute();
+
+  String get location => GoRouteData.$location(
+        '/home',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+extension $AddSpendRouteExtension on AddSpendRoute {
+  static AddSpendRoute _fromState(GoRouterState state) => AddSpendRoute();
+
+  String get location => GoRouteData.$location(
+        '/home/addSpend',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+extension $RemoveSpendRouteExtension on RemoveSpendRoute {
+  static RemoveSpendRoute _fromState(GoRouterState state) => RemoveSpendRoute();
+
+  String get location => GoRouteData.$location(
+        '/home/removeSpend',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
 
 RouteBase get $splashRoute => GoRouteData.$route(
       path: '/',
@@ -19,97 +83,10 @@ RouteBase get $splashRoute => GoRouteData.$route(
     );
 
 extension $SplashRouteExtension on SplashRoute {
-  static SplashRoute _fromState(GoRouterState state) => SplashRoute(
-        fromPage: state.uri.queryParameters['from-page'],
-      );
+  static SplashRoute _fromState(GoRouterState state) => SplashRoute();
 
   String get location => GoRouteData.$location(
         '/',
-        queryParams: {
-          if (fromPage != null) 'from-page': fromPage,
-        },
-      );
-
-  void go(BuildContext context) => context.go(location);
-
-  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
-
-  void pushReplacement(BuildContext context) =>
-      context.pushReplacement(location);
-
-  void replace(BuildContext context) => context.replace(location);
-}
-
-RouteBase get $loginRoute => GoRouteData.$route(
-      path: '/login',
-      factory: $LoginRouteExtension._fromState,
-    );
-
-extension $LoginRouteExtension on LoginRoute {
-  static LoginRoute _fromState(GoRouterState state) => LoginRoute(
-        fromPage: state.uri.queryParameters['from-page'],
-      );
-
-  String get location => GoRouteData.$location(
-        '/login',
-        queryParams: {
-          if (fromPage != null) 'from-page': fromPage,
-        },
-      );
-
-  void go(BuildContext context) => context.go(location);
-
-  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
-
-  void pushReplacement(BuildContext context) =>
-      context.pushReplacement(location);
-
-  void replace(BuildContext context) => context.replace(location);
-}
-
-RouteBase get $listProductRoute => GoRouteData.$route(
-      path: '/home/product',
-      factory: $ListProductRouteExtension._fromState,
-    );
-
-extension $ListProductRouteExtension on ListProductRoute {
-  static ListProductRoute _fromState(GoRouterState state) => ListProductRoute(
-        fromPage: state.uri.queryParameters['from-page'],
-      );
-
-  String get location => GoRouteData.$location(
-        '/home/product',
-        queryParams: {
-          if (fromPage != null) 'from-page': fromPage,
-        },
-      );
-
-  void go(BuildContext context) => context.go(location);
-
-  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
-
-  void pushReplacement(BuildContext context) =>
-      context.pushReplacement(location);
-
-  void replace(BuildContext context) => context.replace(location);
-}
-
-RouteBase get $detailProductRoute => GoRouteData.$route(
-      path: '/home/product/detail',
-      factory: $DetailProductRouteExtension._fromState,
-    );
-
-extension $DetailProductRouteExtension on DetailProductRoute {
-  static DetailProductRoute _fromState(GoRouterState state) =>
-      DetailProductRoute(
-        fromPage: state.uri.queryParameters['from-page'],
-      );
-
-  String get location => GoRouteData.$location(
-        '/home/product/detail',
-        queryParams: {
-          if (fromPage != null) 'from-page': fromPage,
-        },
       );
 
   void go(BuildContext context) => context.go(location);
