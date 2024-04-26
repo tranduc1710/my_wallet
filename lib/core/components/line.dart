@@ -18,7 +18,7 @@ class Line extends StatelessWidget {
     return Container(
       width: width ?? (symmetric == Symmetric.horizontal ? double.infinity : 1),
       height: height ?? (symmetric == Symmetric.vertical ? double.infinity : 1),
-      color: color ?? AppColor.border,
+      color: color ?? AppColor.divider,
     );
   }
 }

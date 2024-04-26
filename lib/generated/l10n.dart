@@ -50,6 +50,16 @@ class S {
     return Localizations.of<S>(context, S);
   }
 
+  /// `My wallet`
+  String get appName {
+    return Intl.message(
+      'My wallet',
+      name: 'appName',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Đăng nhập`
   String get login {
     return Intl.message(
@@ -95,6 +105,36 @@ class S {
     return Intl.message(
       'Lỗi',
       name: 'error',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Notification`
+  String get notification {
+    return Intl.message(
+      'Notification',
+      name: 'notification',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Cancel`
+  String get cancel {
+    return Intl.message(
+      'Cancel',
+      name: 'cancel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Ok`
+  String get ok {
+    return Intl.message(
+      'Ok',
+      name: 'ok',
       desc: '',
       args: [],
     );

@@ -3,14 +3,23 @@ part of 'utils.dart';
 mixin Constant {
   static final GlobalKey<NavigatorState> navigatorKey = GlobalKey();
 
-  static SessionEntity? session;
-
-  static String get pathApi => "https://dms.smac.com.vn:8440/";
-
-  static String get clientSecret => "NBiJ2aCTS65haei0iWhVepd122XI2xfd";
+  static String get pathApi => '';
 
   static Duration get timeRequest => const Duration(seconds: 30);
+  static Duration timeAnimationShort = const Duration(milliseconds: 400);
+  static Duration timeAnimationLong = const Duration(milliseconds: 800);
 
   static double get radius => 7.0;
-  static GlobalKey<ScaffoldMessengerState> scaffoldMessengerKey = GlobalKey<ScaffoldMessengerState>();
+  static final lstCountries = [
+    LocaleHive(
+      languageCode: 'en',
+      nameCountries: 'English',
+      pathAssets: 'assets/icons/tieng_anh.png',
+    ),
+    LocaleHive(
+      languageCode: 'vi',
+      nameCountries: 'Việt Nam',
+      pathAssets: 'assets/icons/tieng_viet.png',
+    ),
+  ];
 }

@@ -47,6 +47,16 @@ extension ExNum on num {
   double get sp => screenUtil.setSp(this);
 
   double get dm => screenUtil.diameter(this);
+
+  ///bottomBarHeight
+  double get dmBottom => (screenUtil.bottomBarHeight == 0 ? this : this + screenUtil.bottomBarHeight).toDouble();
+
+  ///statusBarHeight
+  double get dmTop => (screenUtil.statusBarHeight == 0 ? this : this + screenUtil.statusBarHeight).toDouble();
+
+  Widget wSpaceHeight() => SizedBox(height: dm);
+
+  Widget wSpaceWidth() => SizedBox(width: dm);
 }
 
 extension ExDoubleNull on double? {
@@ -70,10 +80,6 @@ extension ExDateTime on DateTime {
 
 extension ExStringNull on String? {
   String get value => this ?? '';
-}
-
-extension ExFunction on Function() {
-  void postFrame() => WidgetsFlutterBinding.ensureInitialized().addPostFrameCallback((_) => this());
 }
 
 extension ExBehaviorSubject on BehaviorSubject {
@@ -131,5 +137,61 @@ extension ExWidget on Widget {
 
           return this;
         });
+  }
+}
+
+extension ExString on String {
+  Widget wText({TextStyle? style, int? maxLength, TextAlign? textAlign, int? maxLines, TextOverflow? overflow}) => Text(
+        maxLength == null || maxLength == 0 || this.length > maxLength.abs() ? this : this.substring(0, maxLength.abs()) + '...',
+        style: style ?? AppStyle.normal,
+        textAlign: textAlign,
+        maxLines: maxLength,
+        overflow: overflow,
+      );
+
+  Widget wTextRequired({TextStyle? style}) => RichText(
+        text: TextSpan(
+          children: [
+            TextSpan(
+              text: this,
+              style: style ?? AppStyle.normal,
+            ),
+            TextSpan(
+              text: " *",
+              style: (style ?? AppStyle.normal).copyWith(color: Colors.red),
+            ),
+          ],
+        ),
+      );
+
+  Widget wTextColonRequired({TextStyle? style}) => RichText(
+        text: TextSpan(
+          children: [
+            TextSpan(
+              text: "$this:",
+              style: style ?? AppStyle.normal,
+            ),
+            TextSpan(
+              text: " *",
+              style: (style ?? AppStyle.normal).copyWith(color: Colors.red),
+            ),
+          ],
+        ),
+      );
+
+  String get colon => "$this: ";
+}
+
+extension ExMap<K, V> on Map<K, V> {
+  Map<K, V> get withOutNull {
+    final valueMap = <K, V>{};
+
+    for (final item in entries) {
+      if (item.value != null) {
+        valueMap[item.key] = item.value;
+      }
+    }
+
+    return valueMap;
   }
 }

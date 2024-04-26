@@ -23,6 +23,7 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "alert": MessageLookupByLibrary.simpleMessage("Thông báo"),
+        "appName": MessageLookupByLibrary.simpleMessage("Demo app"),
         "connectionTimedOut":
             MessageLookupByLibrary.simpleMessage("Kết nối hết hạn"),
         "login": MessageLookupByLibrary.simpleMessage("Đăng nhập")

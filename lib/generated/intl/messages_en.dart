@@ -27,6 +27,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "add": MessageLookupByLibrary.simpleMessage("Thêm"),
         "addSpend": MessageLookupByLibrary.simpleMessage("Thêm chi tiêu"),
         "alert": MessageLookupByLibrary.simpleMessage("Thông báo"),
+        "appName": MessageLookupByLibrary.simpleMessage("My wallet"),
+        "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
         "close": MessageLookupByLibrary.simpleMessage("Đóng"),
         "confirm": MessageLookupByLibrary.simpleMessage("Xác nhận"),
         "connectionTimedOut":
@@ -44,6 +46,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Network connection error"),
         "noDataReturned":
             MessageLookupByLibrary.simpleMessage("No data returned"),
+        "notification": MessageLookupByLibrary.simpleMessage("Notification"),
+        "ok": MessageLookupByLibrary.simpleMessage("Ok"),
         "remove": MessageLookupByLibrary.simpleMessage("Trừ"),
         "total": m0,
         "uploadFailed": MessageLookupByLibrary.simpleMessage("Upload failed")

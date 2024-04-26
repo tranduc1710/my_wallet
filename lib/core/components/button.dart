@@ -1,6 +1,6 @@
 part of 'components.dart';
 
-class AppButton extends StatefulWidget {
+class AppButton extends StatelessWidget {
   final Function()? onPressed;
   final String? text;
   final TextStyle? textStyle;
@@ -8,7 +8,11 @@ class AppButton extends StatefulWidget {
   final double? minWidth;
   final BorderRadius? borderRadius;
   final bool isOutline;
+  final EdgeInsetsGeometry? padding;
+  final ValueNotifier<bool>? loading;
+  final bool enable;
   Color? color;
+  Color? borderColor;
   Color? splashColor;
   Color? highlightColor;
   Color? loadingColor;
@@ -22,92 +26,92 @@ class AppButton extends StatefulWidget {
     this.splashColor,
     this.highlightColor,
     this.textStyle,
-    this.height,
+    this.height = 43,
     this.minWidth,
     this.color,
     this.borderRadius,
+    this.borderColor,
+    this.padding,
     this.isOutline = false,
+    this.loading,
+    this.enable = true,
   }) : super(key: key) {
     child ??= Container();
     color ??= AppColor.primary;
   }
 
-  @override
-  State<AppButton> createState() => _AppButtonState();
-}
-
-class _AppButtonState extends State<AppButton> with TickerProviderStateMixin {
-  final _rxLoading = false.rx;
-  final key = GlobalKey();
-
-  @override
-  void dispose() {
-    super.dispose();
-    _rxLoading.close();
-  }
+  final _key = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<bool>(
-        stream: _rxLoading.stream,
-        initialData: false,
-        builder: (context, snapshot) {
-          return MaterialButton(
-            key: key,
-            onPressed: () async {
+    return MaterialButton(
+      key: _key,
+      onPressed: !enable
+          ? null
+          : () async {
               FocusScope.of(context).requestFocus(FocusNode());
-              if (_rxLoading.value == true) return;
-              if (widget.onPressed != null) {
-                _rxLoading.value = true;
+              if (loading?.value == true) return;
+              if (onPressed != null) {
                 try {
-                  await widget.onPressed!();
+                  await onPressed!();
                 } catch (e, s) {
                   kPrint("$e\n$s");
                 }
-                _rxLoading.value = false;
               }
             },
-            color: widget.color,
-            disabledColor: AppColor.primary,
-            elevation: 0,
-            height: widget.height,
-            splashColor: widget.splashColor,
-            highlightColor: widget.highlightColor,
-            minWidth: widget.minWidth,
-            shape: RoundedRectangleBorder(
-              borderRadius: widget.borderRadius ?? BorderRadius.circular(10),
-              side: const BorderSide(
-                color: Colors.transparent,
-                width: 1,
-              ),
-            ),
-            child: snapshot.data.getBool()
-                ? Builder(builder: (context) {
-                    final renderBox = key.currentContext?.findRenderObject() as RenderBox;
-                    final size = renderBox.size;
+      color: isOutline ? Colors.white : color,
+      disabledColor: AppColor.divider,
+      elevation: 0,
+      height: height,
+      splashColor: splashColor,
+      highlightColor: highlightColor,
+      minWidth: minWidth,
+      padding: padding,
+      shape: RoundedRectangleBorder(
+        borderRadius: borderRadius ?? BorderRadius.circular(10),
+        side: BorderSide(
+          color: isOutline ? AppColor.primary : borderColor ?? Colors.transparent,
+          width: 1,
+        ),
+      ),
+      child: loading == null
+          ? _content(context, false)
+          : ValueListenableBuilder(
+              valueListenable: loading!,
+              builder: (context, value, child) {
+                return _content(context, value);
+              }),
+    );
+  }
 
-                    return SizedBox(
-                      width: min(size.width, size.height) * .5,
-                      height: min(size.width, size.height) * .5,
-                      child: LoadingIndicator(
-                        indicatorType: Indicator.circleStrokeSpin,
-                        colors: const [Colors.white],
-                        strokeWidth: 2.5.dm,
-                      ),
-                    );
-                  })
-                : widget.text != null
-                    ? Text(
-                        widget.text!,
-                        style: widget.textStyle ??
-                            const TextStyle(
-                              color: Colors.white,
-                              fontSize: 15,
-                              fontWeight: FontWeight.w700,
-                            ),
-                      )
-                    : widget.child,
-          );
-        });
+  Widget _content(BuildContext context, bool isLoading) {
+    if (isLoading) {
+      final renderBox = context.findRenderObject() as RenderBox?;
+      final size = renderBox?.size;
+
+      if (size != null) {
+        return SizedBox(
+          width: min(size.width, size.height),
+          height: min(size.width, size.height),
+          child: CircularProgressIndicator(
+            color: Colors.white,
+            strokeWidth: 2.5.dm,
+          ),
+        );
+      }
+    }
+    if (text != null) {
+      return Text(
+        text!,
+        textAlign: TextAlign.center,
+        style: textStyle ??
+            AppStyle.s16.copyWith(
+              color: isOutline ? AppColor.primary : Colors.white,
+              fontWeight: FontWeight.w700,
+              height: 1,
+            ),
+      );
+    }
+    return child ?? const SizedBox();
   }
 }

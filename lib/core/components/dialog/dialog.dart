@@ -1,4 +1,4 @@
-part of 'components.dart';
+part of '../components.dart';
 
 class AppDialog {
   final Future Function()? function;
@@ -26,10 +26,10 @@ class AppDialog {
       }
     }
 
-    if (!context.mounted) return data;
+    if (!Constant.navigatorKey.currentContext!.mounted) return data;
 
     showDialog(
-      context: context,
+      context: Constant.navigatorKey.currentContext!,
       builder: (context) => Card(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(Constant.radius),
@@ -39,7 +39,7 @@ class AppDialog {
             maxWidth: .75.w,
           ),
           decoration: BoxDecoration(
-            color: AppColor.background,
+            color: AppColor.textIcon,
             borderRadius: BorderRadius.circular(Constant.radius),
           ),
           child: Column(
@@ -76,7 +76,7 @@ class AppDialog {
                   if (showClose)
                     AppButton(
                       text: AppLanguage.close,
-                      color: AppColor.border,
+                      color: AppColor.divider,
                       onPressed: (onSubmit != null && submit == null) ? onSubmit : context.back,
                     ),
                   if (submit != null)

@@ -29,7 +29,7 @@ class ScreenUtil {
   /// Manually wait for window size to be initialized
   ///
   /// `Recommended` to use before you need access window size
-  /// or in custom splash/bootstrap screen [FutureBuilder]
+  /// or in custom splash0/bootstrap screen [FutureBuilder]
   ///
   /// example:
   /// ```dart
@@ -112,8 +112,8 @@ class ScreenUtil {
     final MediaQueryData? deviceData = data.nonEmptySizeOrNull();
     final Size deviceSize = deviceData?.size ?? designSize;
 
-    final orientation = deviceData?.orientation ??
-        (deviceSize.width > deviceSize.height ? Orientation.landscape : Orientation.portrait);
+    final orientation =
+        deviceData?.orientation ?? (deviceSize.width > deviceSize.height ? Orientation.landscape : Orientation.portrait);
 
     _instance
       ..fontSizeResolver = fontSizeResolver ?? _instance.fontSizeResolver
@@ -192,8 +192,7 @@ class ScreenUtil {
   double get scaleWidth => screenWidth / _uiSize.width;
 
   /// The ratio of actual height to UI design
-  double get scaleHeight =>
-      (_splitScreenMode ? max(screenHeight, 700) : screenHeight) / _uiSize.height;
+  double get scaleHeight => (_splitScreenMode ? max(screenHeight, 700) : screenHeight) / _uiSize.height;
 
   double get scaleText => _minTextAdapt ? min(scaleWidth, scaleHeight) : scaleWidth;
 
