@@ -1,4 +1,4 @@
-# base_flutter
+# my_wallet
 
 Project này sẽ dựa trên cấu trúc Clean Architecture kết hợp với RxDart 
 

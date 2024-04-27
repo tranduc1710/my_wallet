@@ -1,4 +1,4 @@
-import 'package:base_flutter/src/presentation/pages/home/home_view.dart';
+import 'package:my_wallet/src/presentation/pages/home/home_view.dart';
 import 'package:flutter/material.dart';
 
 import '../../src/presentation/pages/add_spend/add_spend_view.dart';

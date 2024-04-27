@@ -27,7 +27,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "add": MessageLookupByLibrary.simpleMessage("Thêm"),
         "addSpend": MessageLookupByLibrary.simpleMessage("Thêm chi tiêu"),
         "alert": MessageLookupByLibrary.simpleMessage("Thông báo"),
-        "appName": MessageLookupByLibrary.simpleMessage("My wallet"),
+        "appName": MessageLookupByLibrary.simpleMessage("My Wallet"),
         "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
         "close": MessageLookupByLibrary.simpleMessage("Đóng"),
         "confirm": MessageLookupByLibrary.simpleMessage("Xác nhận"),

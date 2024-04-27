@@ -1,4 +1,4 @@
-import '../../../core/base/request/app.request.dart';
+import '../../../core/base/base.dart';
 
 class AuthDataRemote {
   final AppRequest _request = AppRequest();

@@ -1,10 +1,10 @@
 import 'dart:async';
 
-import 'package:base_flutter/core/base/base.dart';
-import 'package:base_flutter/core/utils/routers.dart';
+import 'package:my_wallet/core/base/base.dart';
+import 'package:my_wallet/core/utils/routers.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../core/components/dialog/dialog_content.dart';
+import '../../../../core/components/components.dart';
 import '../../../../core/utils/utils.dart';
 
 part 'home_bloc.dart';

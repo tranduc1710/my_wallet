@@ -1,4 +1,4 @@
-import 'package:base_flutter/core/base/base.dart';
+import 'package:my_wallet/core/base/base.dart';
 
 import '../../src/domain/entity/hive/locale.hive.dart';
 

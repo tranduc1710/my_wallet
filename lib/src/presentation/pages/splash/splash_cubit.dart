@@ -1,4 +1,4 @@
-import 'package:base_flutter/core/utils/routers.dart';
+import 'package:my_wallet/core/utils/routers.dart';
 import 'package:bloc/bloc.dart';
 
 import '../../../../core/base/base.dart';

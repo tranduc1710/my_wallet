@@ -1,4 +1,4 @@
-package com.tranduc.base_flutter
+package com.tranduc.my_wallet
 
 import io.flutter.embedding.android.FlutterActivity
 

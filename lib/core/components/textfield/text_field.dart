@@ -111,8 +111,7 @@ class _PTextFieldState extends State<AppTextField> {
     focusNode = widget.focusNode ?? FocusNode();
     padding = widget.padding ?? const EdgeInsets.only(left: 8);
     margin = widget.margin;
-    _fontSize =
-        (widget.textStyle?.fontSize == null ? AppStyle.normal.fontSize : widget.textStyle!.fontSize) ?? AppStyle.normal.fontSize;
+    _fontSize = (widget.textStyle?.fontSize == null ? AppStyle.normal.fontSize : widget.textStyle!.fontSize) ?? AppStyle.normal.fontSize;
 
     hintStyle = widget.hintStyle ??
         TextStyle(
@@ -210,11 +209,8 @@ class _PTextFieldState extends State<AppTextField> {
                         child: RichText(
                           text: TextSpan(
                             style: AppStyle.normal.copyWith(
-                              color: focusNode.hasFocus && widget.enabled != false && !widget.readOnly
-                                  ? AppColor.primary
-                                  : AppColor.divider,
-                              height:
-                                  widget.maxLines != null && (focusNode.hasFocus || editingController.text.isNotEmpty) ? 0.1 : 0,
+                              color: focusNode.hasFocus && widget.enabled != false && !widget.readOnly ? AppColor.primary : AppColor.divider,
+                              height: widget.maxLines != null && (focusNode.hasFocus || editingController.text.isNotEmpty) ? 0.1 : 0,
                             ),
                             children: [
                               TextSpan(
@@ -225,9 +221,7 @@ class _PTextFieldState extends State<AppTextField> {
                                   text: " *",
                                   style: AppStyle.normal.copyWith(
                                     color: AppColor.error,
-                                    height: widget.maxLines != null && (focusNode.hasFocus || editingController.text.isNotEmpty)
-                                        ? 0.1
-                                        : 0,
+                                    height: widget.maxLines != null && (focusNode.hasFocus || editingController.text.isNotEmpty) ? 0.1 : 0,
                                   ),
                                 ),
                             ],
@@ -284,16 +278,15 @@ class _PTextFieldState extends State<AppTextField> {
                                     borderRadius: BorderRadius.circular(50),
                                     boxShadow: [
                                       BoxShadow(
-                                        color: AppColor.iconGrey.withAlpha(90),
+                                        color: AppColor.divider.withAlpha(90),
                                       )
                                     ],
                                   ),
                                   child: Center(
                                     child: Icon(
                                       Icons.close,
-                                      colorFilter: ColorFilter.mode(AppColor.textIcon, BlendMode.srcIn),
-                                      height: 20.dm,
-                                      width: 20.dm,
+                                      color: AppColor.textIcon,
+                                      size: 20.dm,
                                     ),
                                   ),
                                 ),
@@ -309,17 +302,10 @@ class _PTextFieldState extends State<AppTextField> {
                                   _visibility = !_visibility;
                                 });
                               },
-                              child: Image.asset(
-                                _visibility ? AssetIcons.eyeClosePNG : AssetIcons.eyeOpenPNG,
-                                width: 14.dm,
-                                height: 14.dm,
+                              child: Icon(
+                                _visibility ? Icons.remove_red_eye_rounded : Icons.remove_red_eye_outlined,
+                                size: 14.dm,
                               ),
-                              // child: SvgPicture.asset(
-                              //   _visibility ? AssetIcons.eyeClose : AssetIcons.eyeOpen,
-                              //   width: 15.dm,
-                              //   height: 15.dm,
-                              //   // colorFilter: ColorFilter.mode(AppColor.primary, BlendMode.srcIn),
-                              // ),
                             ),
                           ),
                         if (widget.suffix != null) widget.suffix!.wPadding(EdgeInsets.only(right: 12.dm))
