@@ -7,7 +7,7 @@ mixin AppEdgeInsets {
 
   static EdgeInsets get screen => EdgeInsets.symmetric(horizontal: 15.dm, vertical: 5.dm);
 
-  static EdgeInsets get vertical => EdgeInsets.symmetric(vertical: 5.dm);
+  static EdgeInsets get vertical => EdgeInsets.symmetric(vertical: 7.dm);
 
   static EdgeInsets get horizontal => EdgeInsets.symmetric(horizontal: 5.dm);
 

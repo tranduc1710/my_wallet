@@ -180,7 +180,7 @@ class _PTextFieldState extends State<AppTextField> {
         cursorHeight: _fontSize,
         obscureText: _visibility,
         onSubmitted: widget.onSubmitted,
-        onChanged: widget.onChanged,
+        // onChanged: widget.onChanged,
         onEditingComplete: widget.onEditingComplete,
         onTap: widget.onTap,
         textInputAction: widget.textInputAction,
@@ -267,13 +267,11 @@ class _PTextFieldState extends State<AppTextField> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Container(
-                                  width: 17.dm,
-                                  height: 17.dm,
                                   margin: EdgeInsets.only(
                                     right: widget.typeTF == TypeTF.password ? 3.dm : 15.dm,
                                     left: 5.dm,
                                   ),
-                                  padding: EdgeInsets.all(5.dm),
+                                  padding: EdgeInsets.all(3.dm),
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(50),
                                     boxShadow: [
@@ -286,7 +284,7 @@ class _PTextFieldState extends State<AppTextField> {
                                     child: Icon(
                                       Icons.close,
                                       color: AppColor.textIcon,
-                                      size: 20.dm,
+                                      size: 12.dm,
                                     ),
                                   ),
                                 ),
@@ -340,6 +338,7 @@ class _PTextFieldState extends State<AppTextField> {
   }
 
   void listenerTF() {
+    widget.onChanged?.call(editingController.text);
     if (widget.showClear && editingController.text.isNotEmpty != _showClear) {
       if (!mounted) return;
       _showClear = !_showClear;
@@ -361,4 +360,5 @@ class _PTextFieldState extends State<AppTextField> {
 enum TypeTF {
   normal,
   password,
+  submit,
 }

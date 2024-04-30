@@ -28,28 +28,79 @@ class MessageLookup extends MessageLookupByLibrary {
         "addSpend": MessageLookupByLibrary.simpleMessage("Thêm chi tiêu"),
         "alert": MessageLookupByLibrary.simpleMessage("Thông báo"),
         "appName": MessageLookupByLibrary.simpleMessage("My Wallet"),
+        "caiDat": MessageLookupByLibrary.simpleMessage("Cài đặt"),
         "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
+        "chiTieu": MessageLookupByLibrary.simpleMessage("Chi tiêu"),
+        "choVay": MessageLookupByLibrary.simpleMessage("Cho vay"),
+        "chuaChonNguoiChoVay":
+            MessageLookupByLibrary.simpleMessage("Chưa chọn người cho vay"),
+        "chuaCoAi": MessageLookupByLibrary.simpleMessage("Chưa có ai"),
+        "chuaCoGiaTri":
+            MessageLookupByLibrary.simpleMessage("Chưa có giá trị nào"),
+        "chuaNhapSoTien":
+            MessageLookupByLibrary.simpleMessage("Bạn chưa nhập số tiền"),
         "close": MessageLookupByLibrary.simpleMessage("Đóng"),
         "confirm": MessageLookupByLibrary.simpleMessage("Xác nhận"),
         "connectionTimedOut":
             MessageLookupByLibrary.simpleMessage("Connection timed out"),
+        "dayLaKhoan": MessageLookupByLibrary.simpleMessage("Đây là khoản"),
         "errGettingData":
             MessageLookupByLibrary.simpleMessage("Error when processing data"),
         "error": MessageLookupByLibrary.simpleMessage("Lỗi"),
         "errorOccurred":
             MessageLookupByLibrary.simpleMessage("An error occurred"),
+        "ghiChu": MessageLookupByLibrary.simpleMessage("Ghi chú"),
+        "gioChoVay": MessageLookupByLibrary.simpleMessage("Giờ cho vay"),
+        "gioNhan": MessageLookupByLibrary.simpleMessage("Giờ nhận"),
+        "gioPhatSinh": MessageLookupByLibrary.simpleMessage("Giờ phát sinh"),
+        "gioTraNo": MessageLookupByLibrary.simpleMessage("Giờ trả nợ"),
         "home": MessageLookupByLibrary.simpleMessage("Trang chủ"),
+        "khong": MessageLookupByLibrary.simpleMessage("Không"),
+        "khongCo": MessageLookupByLibrary.simpleMessage("Không có"),
+        "laDiVay": MessageLookupByLibrary.simpleMessage("Là đi vay người khác"),
+        "lai": MessageLookupByLibrary.simpleMessage("Lãi"),
+        "laiSuat": MessageLookupByLibrary.simpleMessage("Lãi suất"),
+        "loadingData": MessageLookupByLibrary.simpleMessage("Loading data"),
+        "loaiChiTieu": MessageLookupByLibrary.simpleMessage("Loại chi tiêu"),
         "login": MessageLookupByLibrary.simpleMessage("Đăng nhập"),
         "loginExpired":
             MessageLookupByLibrary.simpleMessage("Login session expired"),
+        "nam": MessageLookupByLibrary.simpleMessage("Năm"),
         "networkError":
             MessageLookupByLibrary.simpleMessage("Network connection error"),
+        "ngay": MessageLookupByLibrary.simpleMessage("Ngày"),
+        "ngayChoVay": MessageLookupByLibrary.simpleMessage("Ngày cho vay"),
+        "ngayGioChoVayKhongHopLe": MessageLookupByLibrary.simpleMessage(
+            "Ngày/giờ cho vay không hợp lệ"),
+        "ngayGioKhongDung": MessageLookupByLibrary.simpleMessage(
+            "Ngày hoặc giờ không đúng định dạng"),
+        "ngayNhan": MessageLookupByLibrary.simpleMessage("Ngày nhận"),
+        "ngayPhatSinh": MessageLookupByLibrary.simpleMessage("Ngày phát sinh"),
+        "ngayTraNo": MessageLookupByLibrary.simpleMessage("Ngày trả nợ"),
+        "nguoiVay": MessageLookupByLibrary.simpleMessage("Người vay"),
+        "nhanTien": MessageLookupByLibrary.simpleMessage("Nhận tiền"),
+        "nhanTu": MessageLookupByLibrary.simpleMessage("Nhận từ"),
+        "nhapDeTaoMoi": MessageLookupByLibrary.simpleMessage("Nhập để tạo mới"),
+        "nhapSo": MessageLookupByLibrary.simpleMessage("Nhập số"),
         "noDataReturned":
             MessageLookupByLibrary.simpleMessage("No data returned"),
         "notification": MessageLookupByLibrary.simpleMessage("Notification"),
         "ok": MessageLookupByLibrary.simpleMessage("Ok"),
+        "phanTram": MessageLookupByLibrary.simpleMessage("Phần trăm"),
         "remove": MessageLookupByLibrary.simpleMessage("Trừ"),
+        "soNgay": MessageLookupByLibrary.simpleMessage("Số ngày"),
+        "soTien": MessageLookupByLibrary.simpleMessage("Số tiền"),
+        "taoMoi": MessageLookupByLibrary.simpleMessage("Tạo mới"),
+        "thang": MessageLookupByLibrary.simpleMessage("Tháng"),
+        "themThanhCong":
+            MessageLookupByLibrary.simpleMessage("Thêm thành công"),
+        "theo": MessageLookupByLibrary.simpleMessage("Theo"),
+        "theoNgay": MessageLookupByLibrary.simpleMessage("Theo ngày"),
+        "thongKe": MessageLookupByLibrary.simpleMessage("Thống kê"),
+        "tinhTheo": MessageLookupByLibrary.simpleMessage("Tính theo"),
         "total": m0,
-        "uploadFailed": MessageLookupByLibrary.simpleMessage("Upload failed")
+        "uploadFailed": MessageLookupByLibrary.simpleMessage("Upload failed"),
+        "vayNguoiKhac": MessageLookupByLibrary.simpleMessage("Vay người khác"),
+        "veTrangChu": MessageLookupByLibrary.simpleMessage("Về màn hình chính")
       };
 }

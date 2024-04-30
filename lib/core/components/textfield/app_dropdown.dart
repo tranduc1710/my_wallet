@@ -11,9 +11,10 @@ class AppDropdownTF<O> extends StatefulWidget {
   final String? labelText;
   final int? maxLines;
   final bool isRequired;
-  final String? initialValue;
+  final O? initialValue;
   final AppDropdownController<O> controller;
   final FutureOr<bool> Function()? onTap;
+  final void Function(String name)? onCreateNew;
 
   const AppDropdownTF({
     Key? key,
@@ -30,6 +31,7 @@ class AppDropdownTF<O> extends StatefulWidget {
     this.isRequired = false,
     this.initialValue,
     this.onTap,
+    this.onCreateNew,
   }) : super(key: key);
 
   @override
@@ -39,16 +41,25 @@ class AppDropdownTF<O> extends StatefulWidget {
 class _AppDropdownTFState<O> extends State<AppDropdownTF<O>> {
   final key = GlobalKey();
   final controller = TextEditingController();
+  final focusNode = FocusNode();
   bool enable = false;
 
   @override
   void initState() {
     super.initState();
-    widget.controller._clear = () {
-      controller.clear();
-    };
+    widget.controller
+      .._clear = () {
+        controller.clear();
+      }
+      .._reShow = () {
+        if (widget.controller._details != null) {
+          context.back();
+          _onTapTF(widget.controller._details!);
+        }
+      };
     if (widget.initialValue != null) {
-      controller.text = widget.initialValue.value;
+      controller.text = widget.onChoice(widget.initialValue as O);
+      widget.controller._itemSelect = widget.initialValue as O;
     }
   }
 
@@ -82,6 +93,7 @@ class _AppDropdownTFState<O> extends State<AppDropdownTF<O>> {
         child: TextField(
           key: key,
           controller: controller,
+          focusNode: focusNode,
           style: widget.style ?? AppStyle.normal,
           decoration: InputDecoration(
             contentPadding: AppEdgeInsets.horizontal * 2,
@@ -108,15 +120,14 @@ class _AppDropdownTFState<O> extends State<AppDropdownTF<O>> {
                     color: Colors.white,
                     padding: const EdgeInsets.symmetric(vertical: 1, horizontal: 2),
                     child: RichText(
+                      maxLines: 1,
                       text: TextSpan(
                         style: AppStyle.normal.copyWith(
                           color: enable != false ? AppColor.primary : AppColor.divider,
                           height: widget.maxLines != null && (enable) ? 0.1 : 0,
                         ),
                         children: [
-                          TextSpan(
-                            text: widget.labelText,
-                          ),
+                          TextSpan(text: widget.labelText),
                           if (widget.isRequired)
                             TextSpan(
                               text: " *",
@@ -137,7 +148,9 @@ class _AppDropdownTFState<O> extends State<AppDropdownTF<O>> {
   }
 
   void _onTapTF(TapUpDetails details) async {
+    widget.controller._details = details;
     FocusScope.of(context).unfocus();
+
     final renderBox = key.currentContext?.findRenderObject() as RenderBox?;
 
     if (renderBox == null) return;
@@ -158,6 +171,8 @@ class _AppDropdownTFState<O> extends State<AppDropdownTF<O>> {
       enable = true;
     });
 
+    final isCreate = widget.onCreateNew != null && widget.controller.list.isEmpty;
+
     await showMenu(
       context: context,
       position: position,
@@ -173,20 +188,48 @@ class _AppDropdownTFState<O> extends State<AppDropdownTF<O>> {
         minWidth: size.width,
         maxHeight: .3.h,
       ),
-      items: widget.controller.list
-          .asMap()
-          .entries
-          .map(
-            (e) => PopupMenuItem(
-              onTap: () {
-                final value = widget.onChoice(e.value);
-                controller.text = value;
-                widget.controller._itemSelect = e.value;
-              },
-              child: widget.buildItem(e.value),
-            ),
-          )
-          .toList(),
+      items: (isCreate
+          ? [
+              PopupMenuItem(
+                child: AppLanguage.chuaCoGiaTri.wText(),
+              ),
+            ]
+          : widget.controller.list
+              .asMap()
+              .entries
+              .map(
+                (e) => PopupMenuItem(
+                  onTap: () {
+                    final value = widget.onChoice(e.value);
+                    controller.text = value;
+                    widget.controller._itemSelect = e.value;
+                  },
+                  child: widget.buildItem(e.value),
+                ),
+              )
+              .toList())
+        ..addAll(
+          widget.onCreateNew != null
+              ? [
+                  PopupMenuItem(
+                    child: Builder(builder: (context) {
+                      final controller = TextEditingController();
+
+                      return AppTextField(
+                        controller: controller,
+                        hintText: AppLanguage.taoMoi,
+                        textInputAction: TextInputAction.go,
+                        onSubmitted: (content) {
+                          controller.clear();
+                          widget.onCreateNew?.call(content);
+                          widget.controller._reShow.call();
+                        },
+                      );
+                    }),
+                  )
+                ]
+              : <PopupMenuItem>[],
+        ),
     );
 
     setState(() {
@@ -196,11 +239,22 @@ class _AppDropdownTFState<O> extends State<AppDropdownTF<O>> {
 }
 
 class AppDropdownController<O> {
-  List<O> list;
+  late List<O> _list;
+
+  List<O> get list => _list;
+
+  set list(List<O> value) {
+    _list = value;
+  }
+
   O? _itemSelect;
   late void Function() _clear;
+  late void Function() _reShow;
+  TapUpDetails? _details;
 
-  AppDropdownController({required this.list});
+  AppDropdownController({required List<O> list}) {
+    this.list = list;
+  }
 
   O? getItemSelect() => _itemSelect;
 

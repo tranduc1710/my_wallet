@@ -78,7 +78,7 @@ class AppCubit extends Cubit<_AppState> {
   }
 
   void changeLanguage(BuildContext context, LocaleHive localeHive, [bool onSplash = false]) {
-    AppHive.setConstant(HiveBoxConstant.language, localeHive);
+    AppHive.boxConstant.put(HiveBoxConstant.language.name, localeHive);
     emit(state.copyLanguage(localeHive: localeHive));
     if (!onSplash) {
       AppRouters.splash.pushAndRemoveUntil(context, (p0) => false);
@@ -96,17 +96,33 @@ class _AppState {
         floatingActionButtonTheme: const FloatingActionButtonThemeData(
           foregroundColor: Colors.white,
         ),
-        brightness: Brightness.light,
         useMaterial3: false,
-        primaryColor: AppColor.primary,
-        scaffoldBackgroundColor: AppColor.textIcon,
+        colorScheme: ColorScheme(
+          brightness: Brightness.light,
+          primary: AppColor.primary,
+          onPrimary: AppColor.textIcon,
+          secondary: AppColor.accent,
+          onSecondary: AppColor.accent,
+          error: AppColor.error,
+          onError: AppColor.error,
+          background: AppColor.textIcon,
+          onBackground: AppColor.primaryText,
+          surface: AppColor.textIcon,
+          onSurface: AppColor.primaryText,
+        ),
         appBarTheme: AppBarTheme(
-          elevation: 0,
+          elevation: 10,
           backgroundColor: AppColor.primary,
           centerTitle: true,
           titleTextStyle: AppStyle.s18.copyWith(
             color: AppColor.textIcon,
-            fontWeight: FontWeight.w500,
+            fontWeight: FontWeight.bold,
+          ),
+          iconTheme: IconThemeData(
+            color: AppColor.textIcon,
+          ),
+          actionsIconTheme: IconThemeData(
+            color: AppColor.textIcon,
           ),
         ),
       );
@@ -116,8 +132,15 @@ class _AppState {
         floatingActionButtonTheme: const FloatingActionButtonThemeData(
           foregroundColor: Colors.black,
         ),
+        dividerColor: AppColor.divider,
+        primaryColorDark: AppColor.darkPrimary,
+        primaryColorLight: AppColor.lightPrimary,
         brightness: Brightness.dark,
         useMaterial3: false,
+        appBarTheme: AppBarTheme(
+          backgroundColor: AppColor.primary,
+          centerTitle: true,
+        ),
       );
 
   _AppState({

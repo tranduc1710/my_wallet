@@ -1,5 +1,6 @@
-import 'package:my_wallet/src/presentation/pages/home/home_view.dart';
 import 'package:flutter/material.dart';
+import 'package:my_wallet/src/presentation/pages/add_success/add_success_view.dart';
+import 'package:my_wallet/src/presentation/pages/home/home_view.dart';
 
 import '../../src/presentation/pages/add_spend/add_spend_view.dart';
 import '../../src/presentation/pages/splash/splash_view.dart';
@@ -9,6 +10,7 @@ enum AppRouters implements Comparable<AppRouters> {
   splash(name: '/', build: SplashPage()),
   home(name: '/home', build: HomePage()),
   addSpend(name: '/addSpend', build: AddSpendPage(isAdd: true)),
+  addSuccess(name: '/addSuccess', build: AddSuccessPage()),
   editSpend(name: '/editSpend', build: AddSpendPage(isAdd: false)),
   ;
 

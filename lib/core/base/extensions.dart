@@ -57,6 +57,8 @@ extension ExNum on num {
   Widget wSpaceHeight() => SizedBox(height: dm);
 
   Widget wSpaceWidth() => SizedBox(width: dm);
+
+  String formatMoney() => NumberFormat.simpleCurrency(locale: Platform.localeName).format(this);
 }
 
 extension ExDoubleNull on double? {
@@ -194,4 +196,24 @@ extension ExMap<K, V> on Map<K, V> {
 
     return valueMap;
   }
+}
+
+extension ExStatelessWidget on StatelessWidget {
+  AppBar getAppBar(
+    BuildContext context, {
+    String? title,
+  }) =>
+      AppBar(
+        elevation: 5,
+        title: title?.wText(
+          style: AppStyle.s18.copyWith(
+            color: AppColor.textIcon,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+        leading: IconButton(
+          onPressed: context.back,
+          icon: const Icon(Icons.arrow_back_ios),
+        ),
+      );
 }

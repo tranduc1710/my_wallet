@@ -4,7 +4,7 @@ abstract class _AddSpendState {}
 
 class _InitState extends _AddSpendState {}
 
-class _LoadingState extends _AddSpendState {}
+class _AddSuccessState extends _AddSpendState {}
 
 class _ErrorState extends _AddSpendState {
   final String content;
@@ -19,3 +19,9 @@ class _AlertState extends _AddSpendState {
 }
 
 class _CompleteState extends _AddSpendState {}
+
+class _ChoiceTimeState extends _AddSpendState {
+  final TypePicker type;
+
+  _ChoiceTimeState(this.type);
+}
