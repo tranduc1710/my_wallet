@@ -20,10 +20,17 @@ part 'add_spend_bloc.dart';
 part 'add_spend_event.dart';
 part 'add_spend_state.dart';
 
-class AddSpendPage extends StatelessWidget {
+class AddSpendPage extends StatefulWidget {
   final bool isAdd;
 
   const AddSpendPage({super.key, required this.isAdd});
+
+  @override
+  State<AddSpendPage> createState() => _AddSpendPageState();
+}
+
+class _AddSpendPageState extends State<AddSpendPage> with SingleTickerProviderStateMixin {
+  late final tabController = TabController(length: 3, vsync: this);
 
   @override
   Widget build(BuildContext context) {
@@ -81,39 +88,36 @@ class AddSpendPage extends StatelessWidget {
           return Column(
             children: [
               Expanded(
-                child: DefaultTabController(
-                  length: 3,
-                  initialIndex: 0,
-                  child: StreamBuilder(
-                      stream: bloc.indexTab,
-                      initialData: bloc.indexTab.value,
-                      builder: (context, snapshot) {
-                        return Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            AppLanguage.dayLaKhoan.colon.wText().wPadding(AppEdgeInsets.screen),
-                            5.wSpaceHeight(),
-                            Row(
+                child: StreamBuilder(
+                    stream: bloc.indexTab,
+                    initialData: bloc.indexTab.value,
+                    builder: (context, snapshot) {
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          AppLanguage.dayLaKhoan.colon.wText().wPadding(AppEdgeInsets.screen),
+                          5.wSpaceHeight(),
+                          Row(
+                            children: [
+                              buildItemTab(bloc, snapshot, AppLanguage.chiTieu, 0),
+                              buildItemTab(bloc, snapshot, AppLanguage.choVay, 1),
+                              buildItemTab(bloc, snapshot, AppLanguage.nhanTien, 2),
+                            ],
+                          ).wPadding(EdgeInsets.symmetric(horizontal: 12.5.dm)),
+                          Expanded(
+                            child: TabBarView(
+                              controller: tabController,
+                              physics: const NeverScrollableScrollPhysics(),
                               children: [
-                                buildItemTab(bloc, snapshot, AppLanguage.chiTieu, 0),
-                                buildItemTab(bloc, snapshot, AppLanguage.choVay, 1),
-                                buildItemTab(bloc, snapshot, AppLanguage.nhanTien, 2),
+                                _buildTabChiTieu(bloc),
+                                _buildTabChoVay(bloc),
+                                _buildTabNhanTien(bloc),
                               ],
-                            ).wPadding(EdgeInsets.symmetric(horizontal: 12.5.dm)),
-                            Expanded(
-                              child: IndexedStack(
-                                index: snapshot.data,
-                                children: [
-                                  _buildTabChiTieu(bloc),
-                                  _buildTabChoVay(bloc),
-                                  _buildTabNhanTien(bloc),
-                                ],
-                              ),
                             ),
-                          ],
-                        );
-                      }),
-                ),
+                          ),
+                        ],
+                      );
+                    }),
               ),
               // StreamBuilder(
               //     stream: bloc.isNhapSoTien,
@@ -241,7 +245,10 @@ class AddSpendPage extends StatelessWidget {
               ),
             )
             .wCenter(),
-      ).onTap(() => bloc.indexTab.value = index),
+      ).onTap(() {
+        tabController.index = index;
+        bloc.indexTab.value = index;
+      }),
     );
   }
 

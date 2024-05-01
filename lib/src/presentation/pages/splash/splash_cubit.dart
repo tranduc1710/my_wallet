@@ -1,12 +1,14 @@
 import 'dart:convert';
 
 import 'package:bloc/bloc.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/services.dart';
 import 'package:my_wallet/core/utils/hive/hive.dart';
 import 'package:my_wallet/core/utils/routers.dart';
 import 'package:my_wallet/src/domain/entity/hive/tien_te.hive.dart';
 
 import '../../../../core/base/base.dart';
+import '../../../../firebase_options.dart';
 import 'splash_state.dart';
 
 class SplashCubit extends Cubit<SplashState> {
@@ -32,6 +34,9 @@ class SplashCubit extends Cubit<SplashState> {
   }
 
   Future<void> setupData() async {
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
     final lstTienTe = AppHive.boxTienTe.values.toList();
 
     if (lstTienTe.isEmpty) {

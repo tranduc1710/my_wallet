@@ -45,6 +45,7 @@
   "chuaNhapSoTien": "Bạn chưa nhập số tiền",
   "nhapDeTaoMoi": "Nhập để tạo mới",
   "nguoiVay": "Người vay",
+  "nguoiChoVay": "Người cho vay",
   "ngayChoVay": "Ngày cho vay",
   "gioChoVay": "Giờ cho vay",
   "ngayTraNo": "Ngày trả nợ",
@@ -73,5 +74,14 @@
   "caiDat": "Cài đặt",
   "thongKe": "Thống kê",
   "dayLaKhoan": "Đây là khoản",
+  "tuanGanDay": "7 ngày qua",
+  "tuanNay": "Tuần này",
+  "thangNay": "Tháng này",
+  "thangTruoc": "Tháng trước",
+  "quyNay": "Quý này",
+  "namNay": "Năm này",
+  "chuaCoGiaoDich": "Chưa có giao dịch phát sinh",
+  "locTheo": "Lọc theo",
+  "thoiGianTraNo": "Thời gian trả",
   "ngayGioKhongDung": "Ngày hoặc giờ không đúng định dạng"
 }

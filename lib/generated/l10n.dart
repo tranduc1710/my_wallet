@@ -424,6 +424,16 @@ class S {
     );
   }
 
+  /// `Người cho vay`
+  String get nguoiChoVay {
+    return Intl.message(
+      'Người cho vay',
+      name: 'nguoiChoVay',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Ngày cho vay`
   String get ngayChoVay {
     return Intl.message(
@@ -699,6 +709,96 @@ class S {
     return Intl.message(
       'Đây là khoản',
       name: 'dayLaKhoan',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `7 ngày qua`
+  String get tuanGanDay {
+    return Intl.message(
+      '7 ngày qua',
+      name: 'tuanGanDay',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Tuần này`
+  String get tuanNay {
+    return Intl.message(
+      'Tuần này',
+      name: 'tuanNay',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Tháng này`
+  String get thangNay {
+    return Intl.message(
+      'Tháng này',
+      name: 'thangNay',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Tháng trước`
+  String get thangTruoc {
+    return Intl.message(
+      'Tháng trước',
+      name: 'thangTruoc',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Quý này`
+  String get quyNay {
+    return Intl.message(
+      'Quý này',
+      name: 'quyNay',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Năm này`
+  String get namNay {
+    return Intl.message(
+      'Năm này',
+      name: 'namNay',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Chưa có giao dịch phát sinh`
+  String get chuaCoGiaoDich {
+    return Intl.message(
+      'Chưa có giao dịch phát sinh',
+      name: 'chuaCoGiaoDich',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Lọc theo`
+  String get locTheo {
+    return Intl.message(
+      'Lọc theo',
+      name: 'locTheo',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Thời gian trả`
+  String get thoiGianTraNo {
+    return Intl.message(
+      'Thời gian trả',
+      name: 'thoiGianTraNo',
       desc: '',
       args: [],
     );

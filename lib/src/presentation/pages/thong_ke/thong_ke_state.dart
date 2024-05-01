@@ -4,8 +4,6 @@ abstract class _ThongKeState {}
 
 class _InitState extends _ThongKeState {}
 
-class _LoadingState extends _ThongKeState {}
-
 class _ErrorState extends _ThongKeState {
   final String content;
 

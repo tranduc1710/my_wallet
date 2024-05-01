@@ -15,11 +15,7 @@ class AddSpendBloc extends Bloc<_AddSpendEvent, _AddSpendState> {
   final tfNgayTraNo = TextEditingController();
   final tfGioTraNo = TextEditingController();
   final rxLaiSuat = LaiSuat.khong.rx;
-  final lstTimeLaiSuat = [
-    (text: AppLanguage.nam, index: TypeLaiSuat.nam.index),
-    (text: AppLanguage.thang, index: TypeLaiSuat.thang.index),
-    (text: AppLanguage.ngay, index: TypeLaiSuat.ngay.index),
-  ];
+
   late final AppDropdownController<({int index, String text})> dropHanLaiSuatController;
   final tfNgayHanLai = TextEditingController();
   final isDiVay = false.rx;
@@ -44,16 +40,19 @@ class AddSpendBloc extends Bloc<_AddSpendEvent, _AddSpendState> {
     on<AddSpendEvent>(_addSpend);
   }
 
-  void _init(InitEvent event, Emitter<_AddSpendState> emit) {
-    dropController = AppDropdownController(list: AppHive.boxLoaiChiTieu.values.toList());
+  void _init(InitEvent event, Emitter<_AddSpendState> emit) async {
+    await .1.delayed();
+    dropController = AppDropdownController(list: (AppHive.boxLoaiChiTieu.values.toList()));
+    await .1.delayed();
     dropNguoiVayController = AppDropdownController(list: AppHive.boxNguoiVay.values.toList());
+    await .1.delayed();
     dropNhanTuController = AppDropdownController(list: AppHive.boxNhanTu.values.toList());
-    dropHanLaiSuatController = AppDropdownController(list: lstTimeLaiSuat);
+    await .1.delayed();
+    dropHanLaiSuatController = AppDropdownController(list: Constant.lstTimeLaiSuat);
 
     focusSoTien.addListener(() {
       isNhapSoTien.value = focusSoTien.hasFocus;
     });
-
     emit(_CompleteState());
   }
 

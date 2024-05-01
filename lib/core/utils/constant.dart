@@ -22,4 +22,9 @@ mixin Constant {
       pathAssets: 'assets/icons/tieng_viet.png',
     ),
   ];
+  static final lstTimeLaiSuat = [
+    (text: AppLanguage.nam, index: TypeLaiSuat.nam.index),
+    (text: AppLanguage.thang, index: TypeLaiSuat.thang.index),
+    (text: AppLanguage.ngay, index: TypeLaiSuat.ngay.index),
+  ];
 }

@@ -18,7 +18,12 @@ class HomeBloc extends Bloc<_HomeEvent, _HomeState> {
       lstDate.value.add(element.ngay.value);
     }
 
-    lstDate.value.sort();
+    lstDate.value.sort((a, b) {
+      var dateA = DateFormat('dd/MM/yyyy').parse(a);
+      var dateB = DateFormat('dd/MM/yyyy').parse(b);
+
+      return dateB.difference(dateA).inDays;
+    });
 
     AppHive.boxChiTieu.watch().listen((event) {
       kPrint(event);
@@ -32,7 +37,12 @@ class HomeBloc extends Bloc<_HomeEvent, _HomeState> {
 
         if (!lstDate.value.contains(banGhi.ngay)) {
           lstDate.value.add(banGhi.ngay.value);
-          lstDate.value.sort();
+          lstDate.value.sort((a, b) {
+            var dateA = DateFormat('dd/MM/yyyy').parse(a);
+            var dateB = DateFormat('dd/MM/yyyy').parse(b);
+
+            return dateB.difference(dateA).inDays;
+          });
         }
         lstDate.refresh();
       }

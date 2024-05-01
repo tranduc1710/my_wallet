@@ -37,6 +37,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "chuaCoAi": MessageLookupByLibrary.simpleMessage("Chưa có ai"),
         "chuaCoGiaTri":
             MessageLookupByLibrary.simpleMessage("Chưa có giá trị nào"),
+        "chuaCoGiaoDich":
+            MessageLookupByLibrary.simpleMessage("Chưa có giao dịch phát sinh"),
         "chuaNhapSoTien":
             MessageLookupByLibrary.simpleMessage("Bạn chưa nhập số tiền"),
         "close": MessageLookupByLibrary.simpleMessage("Đóng"),
@@ -62,10 +64,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "laiSuat": MessageLookupByLibrary.simpleMessage("Lãi suất"),
         "loadingData": MessageLookupByLibrary.simpleMessage("Loading data"),
         "loaiChiTieu": MessageLookupByLibrary.simpleMessage("Loại chi tiêu"),
+        "locTheo": MessageLookupByLibrary.simpleMessage("Lọc theo"),
         "login": MessageLookupByLibrary.simpleMessage("Đăng nhập"),
         "loginExpired":
             MessageLookupByLibrary.simpleMessage("Login session expired"),
         "nam": MessageLookupByLibrary.simpleMessage("Năm"),
+        "namNay": MessageLookupByLibrary.simpleMessage("Năm này"),
         "networkError":
             MessageLookupByLibrary.simpleMessage("Network connection error"),
         "ngay": MessageLookupByLibrary.simpleMessage("Ngày"),
@@ -77,6 +81,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "ngayNhan": MessageLookupByLibrary.simpleMessage("Ngày nhận"),
         "ngayPhatSinh": MessageLookupByLibrary.simpleMessage("Ngày phát sinh"),
         "ngayTraNo": MessageLookupByLibrary.simpleMessage("Ngày trả nợ"),
+        "nguoiChoVay": MessageLookupByLibrary.simpleMessage("Người cho vay"),
         "nguoiVay": MessageLookupByLibrary.simpleMessage("Người vay"),
         "nhanTien": MessageLookupByLibrary.simpleMessage("Nhận tiền"),
         "nhanTu": MessageLookupByLibrary.simpleMessage("Nhận từ"),
@@ -87,18 +92,24 @@ class MessageLookup extends MessageLookupByLibrary {
         "notification": MessageLookupByLibrary.simpleMessage("Notification"),
         "ok": MessageLookupByLibrary.simpleMessage("Ok"),
         "phanTram": MessageLookupByLibrary.simpleMessage("Phần trăm"),
+        "quyNay": MessageLookupByLibrary.simpleMessage("Quý này"),
         "remove": MessageLookupByLibrary.simpleMessage("Trừ"),
         "soNgay": MessageLookupByLibrary.simpleMessage("Số ngày"),
         "soTien": MessageLookupByLibrary.simpleMessage("Số tiền"),
         "taoMoi": MessageLookupByLibrary.simpleMessage("Tạo mới"),
         "thang": MessageLookupByLibrary.simpleMessage("Tháng"),
+        "thangNay": MessageLookupByLibrary.simpleMessage("Tháng này"),
+        "thangTruoc": MessageLookupByLibrary.simpleMessage("Tháng trước"),
         "themThanhCong":
             MessageLookupByLibrary.simpleMessage("Thêm thành công"),
         "theo": MessageLookupByLibrary.simpleMessage("Theo"),
         "theoNgay": MessageLookupByLibrary.simpleMessage("Theo ngày"),
+        "thoiGianTraNo": MessageLookupByLibrary.simpleMessage("Thời gian trả"),
         "thongKe": MessageLookupByLibrary.simpleMessage("Thống kê"),
         "tinhTheo": MessageLookupByLibrary.simpleMessage("Tính theo"),
         "total": m0,
+        "tuanGanDay": MessageLookupByLibrary.simpleMessage("7 ngày qua"),
+        "tuanNay": MessageLookupByLibrary.simpleMessage("Tuần này"),
         "uploadFailed": MessageLookupByLibrary.simpleMessage("Upload failed"),
         "vayNguoiKhac": MessageLookupByLibrary.simpleMessage("Vay người khác"),
         "veTrangChu": MessageLookupByLibrary.simpleMessage("Về màn hình chính")
