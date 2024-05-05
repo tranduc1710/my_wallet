@@ -96,6 +96,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "remove": MessageLookupByLibrary.simpleMessage("Trừ"),
         "soNgay": MessageLookupByLibrary.simpleMessage("Số ngày"),
         "soTien": MessageLookupByLibrary.simpleMessage("Số tiền"),
+        "soTienHienTai":
+            MessageLookupByLibrary.simpleMessage("Số tiền hiện tại"),
         "taoMoi": MessageLookupByLibrary.simpleMessage("Tạo mới"),
         "thang": MessageLookupByLibrary.simpleMessage("Tháng"),
         "thangNay": MessageLookupByLibrary.simpleMessage("Tháng này"),

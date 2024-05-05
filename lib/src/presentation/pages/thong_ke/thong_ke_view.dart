@@ -1,3 +1,4 @@
+import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:my_wallet/core/base/base.dart';
@@ -50,54 +51,120 @@ class ThongKePage extends StatelessWidget {
         ),
       );
 
-  Widget _buildBody(ThongKeBloc bloc) => SingleChildScrollView(
-        child: StreamBuilder(
-            stream: bloc.rxLoaiTK,
-            initialData: bloc.rxLoaiTK.value,
-            builder: (context, snapshotTK) {
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    children: [
-                      AppLanguage.locTheo.colon.wText(),
-                      5.wSpaceWidth(),
-                      DropdownButton(
-                        value: snapshotTK.data,
-                        items: [
-                          DropdownMenuItem(value: ThongKeTheo.tuanGanNhat, child: AppLanguage.tuanGanDay.wText()),
-                          DropdownMenuItem(value: ThongKeTheo.tuanNay, child: AppLanguage.tuanNay.wText()),
-                          DropdownMenuItem(value: ThongKeTheo.thangNay, child: AppLanguage.thangNay.wText()),
-                          DropdownMenuItem(value: ThongKeTheo.thangTruoc, child: AppLanguage.thangTruoc.wText()),
-                          DropdownMenuItem(value: ThongKeTheo.quyNay, child: AppLanguage.quyNay.wText()),
-                          DropdownMenuItem(value: ThongKeTheo.namNay, child: AppLanguage.namNay.wText()),
-                        ],
-                        onChanged: (value) => bloc.add(DoiLoaiTKEvent(value!)),
+  Widget _buildBody(ThongKeBloc bloc) => StreamBuilder(
+      stream: bloc.rxLoaiTK,
+      initialData: bloc.rxLoaiTK.value,
+      builder: (context, snapshotTK) {
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(
+              height: .7.w,
+              width: .7.w,
+              child: StreamBuilder(
+                  stream: bloc.rxChart,
+                  initialData: bloc.rxChart.value,
+                  builder: (context, snapshot) {
+                    return PieChart(
+                      PieChartData(
+                        pieTouchData: PieTouchData(
+                          touchCallback: (FlTouchEvent event, pieTouchResponse) {},
+                        ),
+                        borderData: FlBorderData(show: false),
+                        sectionsSpace: 2,
+                        centerSpaceRadius: 40,
+                        sections: snapshot.data,
                       ),
-                    ],
-                  ),
-                  StreamBuilder(
-                      stream: bloc.rxTong,
-                      initialData: bloc.rxTong.value,
-                      builder: (context, snapshot) {
-                        return snapshot.data.value.wText(
-                            style: AppStyle.s20.copyWith(
-                          fontWeight: FontWeight.bold,
-                          color: Colors.green,
-                        ));
-                      }),
-                  StreamBuilder(
-                      stream: bloc.rxTongTru,
-                      initialData: bloc.rxTongTru.value,
-                      builder: (context, snapshot) {
-                        return snapshot.data.value.wText(
-                            style: AppStyle.s20.copyWith(
-                          fontWeight: FontWeight.bold,
-                          color: Colors.red,
-                        ));
-                      }),
-                ],
-              ).wPadding(AppEdgeInsets.screen);
-            }),
-      );
+                    );
+                  }),
+            ).wCenter(),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                AppLanguage.locTheo.colon.wText(),
+                5.wSpaceWidth(),
+                DropdownButton(
+                  value: snapshotTK.data,
+                  items: [
+                    DropdownMenuItem(value: ThongKeTheo.tuanGanNhat, child: AppLanguage.tuanGanDay.wText()),
+                    DropdownMenuItem(value: ThongKeTheo.tuanNay, child: AppLanguage.tuanNay.wText()),
+                    DropdownMenuItem(value: ThongKeTheo.thangNay, child: AppLanguage.thangNay.wText()),
+                    DropdownMenuItem(value: ThongKeTheo.thangTruoc, child: AppLanguage.thangTruoc.wText()),
+                    DropdownMenuItem(value: ThongKeTheo.quyNay, child: AppLanguage.quyNay.wText()),
+                    DropdownMenuItem(value: ThongKeTheo.namNay, child: AppLanguage.namNay.wText()),
+                  ],
+                  onChanged: (value) => bloc.add(DoiLoaiTKEvent(value!)),
+                ),
+              ],
+            ),
+            Expanded(
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Expanded(flex: 1, child: AppLanguage.nhanTien.colon.wText()),
+                        Expanded(
+                          flex: 3,
+                          child: StreamBuilder(
+                              stream: bloc.rxTong,
+                              initialData: bloc.rxTong.value,
+                              builder: (context, snapshot) {
+                                return snapshot.data.value.wText(
+                                    style: AppStyle.s16.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.green,
+                                ));
+                              }),
+                        ),
+                      ],
+                    ),
+                    10.wSpaceHeight(),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Expanded(flex: 1, child: AppLanguage.chiTieu.colon.wText()),
+                        Expanded(
+                          flex: 3,
+                          child: StreamBuilder(
+                              stream: bloc.rxTongTru,
+                              initialData: bloc.rxTongTru.value,
+                              builder: (context, snapshot) {
+                                return snapshot.data.value.wText(
+                                    style: AppStyle.s16.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.red,
+                                ));
+                              }),
+                        ),
+                      ],
+                    ),
+                    10.wSpaceHeight(),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Expanded(flex: 1, child: AppLanguage.soTienHienTai.colon.wText()),
+                        Expanded(
+                          flex: 3,
+                          child: StreamBuilder(
+                              stream: bloc.rxHienTai,
+                              initialData: bloc.rxHienTai.value,
+                              builder: (context, snapshot) {
+                                return snapshot.data.value.wText(
+                                    style: AppStyle.s16.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                  color: AppColor.secondaryText,
+                                ));
+                              }),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ).wPadding(AppEdgeInsets.screen);
+      });
 }

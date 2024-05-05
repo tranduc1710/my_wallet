@@ -3,8 +3,29 @@ part of 'thong_ke_view.dart';
 class ThongKeBloc extends Bloc<_ThongKeEvent, _ThongKeState> {
   final rxTong = "0".rx;
   final rxTongTru = "0".rx;
+  final rxHienTai = "0".rx;
   final rxType = 0.rx;
   final rxLoaiTK = ThongKeTheo.tuanGanNhat.rx;
+  final rxChart = <PieChartSectionData>[
+    PieChartSectionData(
+      color: Colors.green,
+      value: 30,
+      title: 0.toString(),
+      titleStyle: AppStyle.normal.copyWith(color: Colors.white),
+    ),
+    PieChartSectionData(
+      color: Colors.red,
+      value: 30,
+      title: 0.toString(),
+      titleStyle: AppStyle.normal.copyWith(color: Colors.white),
+    ),
+    PieChartSectionData(
+      color: AppColor.secondaryText,
+      value: 40,
+      title: 0.toString(),
+      titleStyle: AppStyle.normal.copyWith(color: Colors.red),
+    ),
+  ].rx;
 
   ThongKeBloc() : super(_InitState()) {
     on<InitEvent>(_init);
@@ -56,7 +77,9 @@ class ThongKeBloc extends Bloc<_ThongKeEvent, _ThongKeState> {
     final lstThang = AppHive.boxChiTieu.values.where(
       (element) {
         var dateCurrent = DateFormat('dd/MM/yyyy').parse(element.ngay.value);
-        return dateNow.year == dateCurrent.year && dateNow.month - dateCurrent.month <= 3 && dateNow.month - dateCurrent.month >= 0;
+        return dateNow.year == dateCurrent.year &&
+            dateNow.month - dateCurrent.month <= 3 &&
+            dateNow.month - dateCurrent.month >= 0;
       },
     ).toList();
     _locTongTheoTienTe(lstThang);
@@ -116,6 +139,7 @@ class ThongKeBloc extends Bloc<_ThongKeEvent, _ThongKeState> {
     if (list.isEmpty) {
       rxTong.value = "+0";
       rxTongTru.value = "-0";
+      rxHienTai.value = "0";
       return;
     }
 
@@ -127,25 +151,80 @@ class ThongKeBloc extends Bloc<_ThongKeEvent, _ThongKeState> {
     }
 
     if (lstTienTe.length > 1) {
-      final lstString = <String>[];
-      final lstStringTru = <String>[];
+      final lstString = <String, double>{};
+      final lstStringTru = <String, double>{};
+      final mapTong = <String, double>{};
+
       for (var tienTe in lstTienTe) {
         final lst = list.where((element) => element.codeTienTe == tienTe).toList();
-        lstString.add(Utils.formatMoney(_tinhTong(lst)) + lst.first.donVi.value);
-        lstStringTru.add(Utils.formatMoney(_tinhTongTru(lst)) + lst.first.donVi.value);
+        final tong = _tinhTong(lst);
+        final tru = _tinhTongTru(lst);
+
+        mapTong[lst.first.donVi.value] = tong + tru;
+        lstString[lst.first.donVi.value] = tong;
+        lstStringTru[lst.first.donVi.value] = tru;
       }
-      rxTong.value = lstString.join('\n');
-      rxTongTru.value = lstStringTru.join('\n');
+      rxTong.value = lstString.entries.map((map) => Utils.formatMoney(map.value, false) + map.key).join('\n');
+      rxTongTru.value = lstStringTru.entries.map((map) => Utils.formatMoney(map.value, false) + map.key).join('\n');
+      rxHienTai.value = mapTong.entries.map((map) => Utils.formatMoney(map.value) + map.key).join('\n');
+      rxChart.value.clear();
+      rxChart.refresh();
+
+      for (var i = 0; i < lstTienTe.length; i++) {
+        final tru = lstStringTru.entries.elementAt(i);
+        final tong = lstString.entries.elementAt(i);
+        final hienTai = tong.value + tru.value;
+
+        final double ptConLai = tru.value == 0 ? 100 : (hienTai / tru.value * 100);
+
+        rxChart.value.add(PieChartSectionData(
+          color: Colors.red,
+          value: ptConLai / lstTienTe.length,
+          title: '-${Utils.formatMoney(tru.value, false) + tru.key}',
+          titleStyle: AppStyle.normal.copyWith(color: Colors.black),
+        ));
+        rxChart.value.add(PieChartSectionData(
+          color: Colors.green,
+          value: (100 - ptConLai).abs() / lstTienTe.length,
+          title: '+${Utils.formatMoney(tong.value, false) + tong.key}',
+          titleStyle: AppStyle.normal.copyWith(color: Colors.black),
+        ));
+      }
+
+      rxChart.refresh();
     } else {
-      rxTong.value = Utils.formatMoney(_tinhTong(list)) + list.first.donVi.value;
-      rxTongTru.value = '${Utils.formatMoney(_tinhTongTru(list))}${list.first.donVi.value}';
+      final tong = _tinhTong(list);
+      final tru = _tinhTongTru(list);
+      final hienTai = tong + tru;
+
+      rxTong.value = Utils.formatMoney(_tinhTong(list), false) + list.first.donVi.value;
+      rxTongTru.value = '${Utils.formatMoney(_tinhTongTru(list), false)}${list.first.donVi.value}';
+      rxHienTai.value = Utils.formatMoney(hienTai) + list.first.donVi.value;
+
+      final double ptConLai = tru == 0 ? 100 : (hienTai / tru * 100);
+
+      rxChart.value = [
+        PieChartSectionData(
+          color: Colors.red,
+          value: ptConLai,
+          title: '-${rxTongTru.value}',
+          titleStyle: AppStyle.normal.copyWith(color: Colors.black),
+        ),
+        PieChartSectionData(
+          color: Colors.green,
+          value: (100 - ptConLai).abs(),
+          title: '+${rxTong.value}',
+          titleStyle: AppStyle.normal.copyWith(color: Colors.black),
+        ),
+      ];
     }
   }
 
   double _tinhTong(List<GhiChiTieuModel> list) {
     var tong = 0.0;
     for (var element in list) {
-      if (element.loaiChiTieu == TypeTab.nhanTien.index || (element.loaiChiTieu == TypeTab.choVay.index && element.choVay?.laDiVay == true)) {
+      if (element.loaiChiTieu == TypeTab.nhanTien.index ||
+          (element.loaiChiTieu == TypeTab.choVay.index && element.choVay?.laDiVay == true)) {
         tong += double.tryParse(element.soTien.value.replaceAll(',', '')).value;
       }
     }
@@ -155,7 +234,8 @@ class ThongKeBloc extends Bloc<_ThongKeEvent, _ThongKeState> {
   double _tinhTongTru(List<GhiChiTieuModel> list) {
     var tong = 0.0;
     for (var element in list) {
-      if (element.loaiChiTieu == TypeTab.chiTieu.index || (element.loaiChiTieu == TypeTab.choVay.index && element.choVay?.laDiVay != true)) {
+      if (element.loaiChiTieu == TypeTab.chiTieu.index ||
+          (element.loaiChiTieu == TypeTab.choVay.index && element.choVay?.laDiVay != true)) {
         tong -= double.tryParse(element.soTien.value.replaceAll(',', '')).value;
       }
     }

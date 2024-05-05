@@ -12,6 +12,7 @@ import 'src/domain/entity/hive/locale.hive.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
+  // MobileAds.instance.initialize();
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,

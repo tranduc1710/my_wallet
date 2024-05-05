@@ -6,22 +6,22 @@ class AddSpendBloc extends Bloc<_AddSpendEvent, _AddSpendState> {
   final tfThoiGianPhatSinh = TextEditingController(text: TimeOfDay.now().format(Constant.navigatorKey.currentContext!));
 
   final dropTienTeController = AppDropdownController(list: AppHive.boxTienTe.values.toList());
-  late final AppDropdownController<LoaiChiTieuModel> dropController;
+  final AppDropdownController<LoaiChiTieuModel> dropController = AppDropdownController(list: []);
 
   /// tab cho vay
-  late final AppDropdownController<LoaiChiTieuModel> dropNguoiVayController;
+  final AppDropdownController<LoaiChiTieuModel> dropNguoiVayController = AppDropdownController(list: []);
   final tfNgayChoVay = TextEditingController(text: DateTime.now().withFormat());
   final tfGioChoVay = TextEditingController(text: TimeOfDay.now().format(Constant.navigatorKey.currentContext!));
   final tfNgayTraNo = TextEditingController();
   final tfGioTraNo = TextEditingController();
   final rxLaiSuat = LaiSuat.khong.rx;
 
-  late final AppDropdownController<({int index, String text})> dropHanLaiSuatController;
+  final AppDropdownController<({int index, String text})> dropHanLaiSuatController = AppDropdownController(list: []);
   final tfNgayHanLai = TextEditingController();
   final isDiVay = false.rx;
 
   /// tab nhan tien
-  late final AppDropdownController<LoaiChiTieuModel> dropNhanTuController;
+  final AppDropdownController<LoaiChiTieuModel> dropNhanTuController = AppDropdownController(list: []);
   final tfNgayNhan = TextEditingController(text: DateTime.now().withFormat());
   final tfGioNhan = TextEditingController(text: TimeOfDay.now().format(Constant.navigatorKey.currentContext!));
 
@@ -41,14 +41,10 @@ class AddSpendBloc extends Bloc<_AddSpendEvent, _AddSpendState> {
   }
 
   void _init(InitEvent event, Emitter<_AddSpendState> emit) async {
-    await .1.delayed();
-    dropController = AppDropdownController(list: (AppHive.boxLoaiChiTieu.values.toList()));
-    await .1.delayed();
-    dropNguoiVayController = AppDropdownController(list: AppHive.boxNguoiVay.values.toList());
-    await .1.delayed();
-    dropNhanTuController = AppDropdownController(list: AppHive.boxNhanTu.values.toList());
-    await .1.delayed();
-    dropHanLaiSuatController = AppDropdownController(list: Constant.lstTimeLaiSuat);
+    dropController.list = AppHive.boxLoaiChiTieu.values.toList();
+    dropNguoiVayController.list = AppHive.boxNguoiVay.values.toList();
+    dropNhanTuController.list = AppHive.boxNhanTu.values.toList();
+    dropHanLaiSuatController.list = Constant.lstTimeLaiSuat;
 
     focusSoTien.addListener(() {
       isNhapSoTien.value = focusSoTien.hasFocus;
@@ -130,7 +126,9 @@ class AddSpendBloc extends Bloc<_AddSpendEvent, _AddSpendState> {
           ? null
           : ChiTieuModel(
               loaiChiTieu: dropController.getItemSelect()?.id,
-              fullNgayGio: DateFormat('dd/MM/yyyy HH:mm').parse('${tfNgayPhatSinh.text.trim()} ${tfThoiGianPhatSinh.text.trim()}').millisecondsSinceEpoch,
+              fullNgayGio: DateFormat('dd/MM/yyyy HH:mm')
+                  .parse('${tfNgayPhatSinh.text.trim()} ${tfThoiGianPhatSinh.text.trim()}')
+                  .millisecondsSinceEpoch,
             ),
       choVay: indexTab.value != TypeTab.choVay.index
           ? null

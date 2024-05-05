@@ -804,6 +804,16 @@ class S {
     );
   }
 
+  /// `Số tiền hiện tại`
+  String get soTienHienTai {
+    return Intl.message(
+      'Số tiền hiện tại',
+      name: 'soTienHienTai',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Ngày hoặc giờ không đúng định dạng`
   String get ngayGioKhongDung {
     return Intl.message(
