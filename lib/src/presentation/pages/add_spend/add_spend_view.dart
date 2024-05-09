@@ -44,6 +44,7 @@ class _AddSpendPageState extends State<AddSpendPage> with SingleTickerProviderSt
     final bloc = BlocProvider.of<AddSpendBloc>(context);
 
     return Scaffold(
+      backgroundColor: Colors.white,
       body: BlocConsumer<AddSpendBloc, _AddSpendState>(
         listener: (context, state) async {
           if (state is _AddSuccessState) {
@@ -454,57 +455,53 @@ class _AddSpendPageState extends State<AddSpendPage> with SingleTickerProviderSt
                     children: [
                       Row(
                         children: [
-                          Expanded(
-                            child: Row(
-                              children: [
-                                Radio(
-                                  materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                                  value: LaiSuat.khong,
-                                  groupValue: snapshot.data,
-                                  onChanged: (value) => bloc.rxLaiSuat.value = value!,
-                                ),
-                                5.wSpaceWidth(),
-                                AppLanguage.khong.wText(),
-                              ],
-                            ).onTap(() {
-                              bloc.rxLaiSuat.value = LaiSuat.khong;
-                              bloc.tfNgayHanLai.clear();
-                            }),
-                          ),
-                          Expanded(
-                            child: Row(
-                              children: [
-                                Radio(
-                                  materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                                  value: LaiSuat.ngay,
-                                  groupValue: snapshot.data,
-                                  onChanged: (value) => bloc.rxLaiSuat.value = value!,
-                                ),
-                                5.wSpaceWidth(),
-                                AppLanguage.ngay.wText(),
-                              ],
-                            ).onTap(() {
-                              bloc.rxLaiSuat.value = LaiSuat.ngay;
-                              bloc.tfNgayHanLai.clear();
-                            }),
-                          ),
-                          Expanded(
-                            child: Row(
-                              children: [
-                                Radio(
-                                  materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                                  value: LaiSuat.phanTram,
-                                  groupValue: snapshot.data,
-                                  onChanged: (value) => bloc.rxLaiSuat.value = value!,
-                                ),
-                                5.wSpaceWidth(),
-                                AppLanguage.phanTram.wText(),
-                              ],
-                            ).onTap(() {
-                              bloc.rxLaiSuat.value = LaiSuat.phanTram;
-                              bloc.tfNgayHanLai.clear();
-                            }),
-                          ),
+                          Row(
+                            children: [
+                              Radio(
+                                materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                                value: LaiSuat.khong,
+                                groupValue: snapshot.data,
+                                onChanged: (value) => bloc.rxLaiSuat.value = value!,
+                              ),
+                              5.wSpaceWidth(),
+                              AppLanguage.khong.wText(),
+                            ],
+                          ).onTap(() {
+                            bloc.rxLaiSuat.value = LaiSuat.khong;
+                            bloc.tfNgayHanLai.clear();
+                          }),
+                          5.wSpaceWidth(),
+                          Row(
+                            children: [
+                              Radio(
+                                materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                                value: LaiSuat.ngay,
+                                groupValue: snapshot.data,
+                                onChanged: (value) => bloc.rxLaiSuat.value = value!,
+                              ),
+                              5.wSpaceWidth(),
+                              AppLanguage.ngay.wText(),
+                            ],
+                          ).onTap(() {
+                            bloc.rxLaiSuat.value = LaiSuat.ngay;
+                            bloc.tfNgayHanLai.clear();
+                          }),
+                          5.wSpaceWidth(),
+                          Row(
+                            children: [
+                              Radio(
+                                materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                                value: LaiSuat.phanTram,
+                                groupValue: snapshot.data,
+                                onChanged: (value) => bloc.rxLaiSuat.value = value!,
+                              ),
+                              5.wSpaceWidth(),
+                              AppLanguage.phanTram.wText(),
+                            ],
+                          ).onTap(() {
+                            bloc.rxLaiSuat.value = LaiSuat.phanTram;
+                            bloc.tfNgayHanLai.clear();
+                          }),
                         ],
                       ),
                       if (snapshot.data == LaiSuat.ngay) 7.wSpaceHeight(),

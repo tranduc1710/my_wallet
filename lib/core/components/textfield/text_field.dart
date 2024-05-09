@@ -145,7 +145,7 @@ class _PTextFieldState extends State<AppTextField> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: widget.height ?? 40.dm,
+      // height: widget.height ?? 40.dm,
       margin: margin,
       width: widget.width,
       decoration: BoxDecoration(
@@ -320,7 +320,7 @@ class _PTextFieldState extends State<AppTextField> {
               ? inputBorder
               : OutlineInputBorder(
                   borderRadius: BorderRadius.circular(widget.radius),
-                  borderSide: BorderSide(width: 1, color: AppColor.primary),
+                  borderSide: const BorderSide(width: 1, color: Colors.transparent),
                   gapPadding: 1,
                 ),
           errorBorder: InputBorder.none,

@@ -44,9 +44,9 @@ extension ExNum on num {
 
   double get h => screenUtil.screenHeight * this;
 
-  double get sp => screenUtil.setSp(this);
+  double get sp => toDouble();
 
-  double get dm => screenUtil.diameter(this);
+  double get dm => toDouble();
 
   ///bottomBarHeight
   double get dmBottom => (screenUtil.bottomBarHeight == 0 ? this : this + screenUtil.bottomBarHeight).toDouble();

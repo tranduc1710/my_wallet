@@ -77,9 +77,7 @@ class ThongKeBloc extends Bloc<_ThongKeEvent, _ThongKeState> {
     final lstThang = AppHive.boxChiTieu.values.where(
       (element) {
         var dateCurrent = DateFormat('dd/MM/yyyy').parse(element.ngay.value);
-        return dateNow.year == dateCurrent.year &&
-            dateNow.month - dateCurrent.month <= 3 &&
-            dateNow.month - dateCurrent.month >= 0;
+        return dateNow.year == dateCurrent.year && dateNow.month - dateCurrent.month <= 3 && dateNow.month - dateCurrent.month >= 0;
       },
     ).toList();
     _locTongTheoTienTe(lstThang);
@@ -223,8 +221,7 @@ class ThongKeBloc extends Bloc<_ThongKeEvent, _ThongKeState> {
   double _tinhTong(List<GhiChiTieuModel> list) {
     var tong = 0.0;
     for (var element in list) {
-      if (element.loaiChiTieu == TypeTab.nhanTien.index ||
-          (element.loaiChiTieu == TypeTab.choVay.index && element.choVay?.laDiVay == true)) {
+      if (element.loaiChiTieu == TypeTab.nhanTien.index || (element.loaiChiTieu == TypeTab.choVay.index && element.choVay?.laDiVay == true)) {
         tong += double.tryParse(element.soTien.value.replaceAll(',', '')).value;
       }
     }
@@ -234,8 +231,7 @@ class ThongKeBloc extends Bloc<_ThongKeEvent, _ThongKeState> {
   double _tinhTongTru(List<GhiChiTieuModel> list) {
     var tong = 0.0;
     for (var element in list) {
-      if (element.loaiChiTieu == TypeTab.chiTieu.index ||
-          (element.loaiChiTieu == TypeTab.choVay.index && element.choVay?.laDiVay != true)) {
+      if (element.loaiChiTieu == TypeTab.chiTieu.index || (element.loaiChiTieu == TypeTab.choVay.index && element.choVay?.laDiVay != true)) {
         tong -= double.tryParse(element.soTien.value.replaceAll(',', '')).value;
       }
     }

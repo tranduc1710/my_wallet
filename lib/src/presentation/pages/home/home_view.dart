@@ -54,8 +54,7 @@ class HomePage extends StatelessWidget {
                           AppRouters.addSpend.push(context);
                         }
                       },
-                      buildWhen: (previous, current) =>
-                          current is _LoadingState || current is _ErrorState || current is _CompleteState,
+                      buildWhen: (previous, current) => current is _LoadingState || current is _ErrorState || current is _CompleteState,
                       builder: (context, state) {
                         if (state is _LoadingState || state is _InitState) {
                           return _loading();
@@ -75,24 +74,37 @@ class HomePage extends StatelessWidget {
                   ),
                 ],
               ),
-              bottomNavigationBar: TabBar(
-                unselectedLabelStyle: AppStyle.s12,
-                labelStyle: AppStyle.s13.copyWith(color: AppColor.primary),
-                dividerColor: AppColor.divider,
-                tabs: [
-                  Tab(
-                    icon: const Icon(Icons.list_alt),
-                    text: AppLanguage.chiTieu,
-                  ),
-                  Tab(
-                    icon: const Icon(Icons.add_circle_outline),
-                    text: AppLanguage.addSpend,
-                  ),
-                  Tab(
-                    icon: const Icon(Icons.analytics_outlined),
-                    text: AppLanguage.thongKe,
-                  ),
-                ],
+              bottomNavigationBar: Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  boxShadow: [
+                    BoxShadow(
+                      color: AppColor.divider,
+                      blurRadius: 5,
+                      offset: const Offset(0, -5),
+                      // blurStyle: BlurStyle.outer,
+                    ),
+                  ],
+                ),
+                child: TabBar(
+                  unselectedLabelStyle: AppStyle.s12,
+                  labelStyle: AppStyle.s13.copyWith(color: AppColor.primary),
+                  dividerColor: AppColor.divider,
+                  tabs: [
+                    Tab(
+                      icon: const Icon(Icons.list_alt),
+                      text: AppLanguage.chiTieu,
+                    ),
+                    Tab(
+                      icon: const Icon(Icons.add_circle_outline),
+                      text: AppLanguage.addSpend,
+                    ),
+                    Tab(
+                      icon: const Icon(Icons.analytics_outlined),
+                      text: AppLanguage.thongKe,
+                    ),
+                  ],
+                ).wPadding(EdgeInsets.only(bottom: 1.dmBottom)),
               ),
               // BottomNavigationBar(
               //   onTap: (value) => bloc.indexTab.value = value,
@@ -138,8 +150,7 @@ class HomePage extends StatelessWidget {
           return CustomScrollView(
             keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
             slivers: List.generate(snapshot.data.getList.length, (index) {
-              final list =
-                  bloc.lstChiTieu.where((element) => element.ngay == snapshot.data.getList[index]).toList().reversed.toList();
+              final list = bloc.lstChiTieu.where((element) => element.ngay == snapshot.data.getList[index]).toList().reversed.toList();
 
               return SliverMainAxisGroup(slivers: [
                 SliverPersistentHeader(
@@ -173,8 +184,7 @@ class HomePage extends StatelessWidget {
 
   Widget _viewItem(GhiChiTieuModel item) {
     final loaiChiTieu = _getLoaiChiTieu(item);
-    final isAdd =
-        item.loaiChiTieu == TypeTab.nhanTien.index || (item.loaiChiTieu == TypeTab.choVay.index && item.choVay?.laDiVay == true);
+    final isAdd = item.loaiChiTieu == TypeTab.nhanTien.index || (item.loaiChiTieu == TypeTab.choVay.index && item.choVay?.laDiVay == true);
 
     return Container(
       margin: AppEdgeInsets.item,
@@ -253,8 +263,7 @@ class HomePage extends StatelessWidget {
               if (item.loaiChiTieu == TypeTab.nhanTien.index) ...[
                 TableRow(children: [
                   AppLanguage.nhanTu.colon.wText(style: AppStyle.normal.copyWith(color: AppColor.secondaryText)),
-                  if (item.nhanTien!.nhanTu != null)
-                    AppHive.boxNhanTu.get(item.nhanTien!.nhanTu!.value.toString())!.ten.value.wText(),
+                  if (item.nhanTien!.nhanTu != null) AppHive.boxNhanTu.get(item.nhanTien!.nhanTu!.value.toString())!.ten.value.wText(),
                   if (item.nhanTien!.nhanTu == null) ''.wText(),
                 ]),
               ],
