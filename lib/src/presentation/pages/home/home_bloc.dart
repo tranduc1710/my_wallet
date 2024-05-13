@@ -1,8 +1,6 @@
 part of 'home_view.dart';
 
 class HomeBloc extends Bloc<_HomeEvent, _HomeState> {
-  final lstKey = GlobalKey<AnimatedListState>();
-
   final indexTab = 1.rx;
   final lstDate = <String>[].rx;
   final lstChiTieu = AppHive.boxChiTieu.values.toList();
