@@ -373,7 +373,13 @@ class _AddSpendPageState extends State<AddSpendPage> with SingleTickerProviderSt
     value = "${lst.join(',')}${lstSplit.length > 1 ? ".${lstSplit.last}" : ''}";
 
     if (controller.text != value) {
-      controller.text = value;
+      var offset = controller.value.selection.baseOffset + (lst.length - lstSplit.length);
+      offset -= lst.join(',').substring(offset).length ~/ 3;
+
+      controller.value = TextEditingValue(
+        text: value,
+        selection: controller.value.selection.copyWith(baseOffset: offset, extentOffset: offset),
+      );
     }
   }
 
