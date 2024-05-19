@@ -4,6 +4,7 @@ class ThongKeBloc extends Bloc<_ThongKeEvent, _ThongKeState> {
   final rxTong = "0".rx;
   final rxTongTru = "0".rx;
   final rxHienTai = "0".rx;
+  final rxSoTienHT = "0".rx;
   final rxType = 0.rx;
   final rxLoaiTK = ThongKeTheo.tuanGanNhat.rx;
   final rxChart = <PieChartSectionData>[
@@ -34,6 +35,34 @@ class ThongKeBloc extends Bloc<_ThongKeEvent, _ThongKeState> {
 
   void _init(InitEvent event, Emitter<_ThongKeState> emit) {
     _tinh7NgayGanNhat();
+    _tongHienTai();
+  }
+
+  void _tongHienTai() {
+    final list = AppHive.boxChiTieu.values.toList();
+    final lstTienTe = <String>[];
+    for (var element in list) {
+      if (!lstTienTe.contains(element.codeTienTe)) {
+        lstTienTe.add(element.codeTienTe.value);
+      }
+    }
+    if (lstTienTe.length > 1) {
+      final mapTong = <String, double>{};
+
+      for (var tienTe in lstTienTe) {
+        final lst = list.where((element) => element.codeTienTe == tienTe).toList();
+        final tong = _tinhTong(lst);
+        final tru = _tinhTongTru(lst);
+
+        mapTong[lst.first.donVi.value] = tong + tru;
+      }
+      rxSoTienHT.value = mapTong.entries.map((map) => Utils.formatMoney(map.value) + map.key).join('\n');
+    }else{
+      final tong = _tinhTong(list);
+      final tru = _tinhTongTru(list);
+      final hienTai = tong + tru;
+      rxSoTienHT.value = Utils.formatMoney(hienTai) + list.first.donVi.value;
+    }
   }
 
   void _doiLoaiTK(DoiLoaiTKEvent event, Emitter<_ThongKeState> emit) {

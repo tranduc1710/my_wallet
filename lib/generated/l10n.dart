@@ -60,6 +60,16 @@ class S {
     );
   }
 
+  /// `Tổng`
+  String get tong {
+    return Intl.message(
+      'Tổng',
+      name: 'tong',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Đăng nhập`
   String get login {
     return Intl.message(

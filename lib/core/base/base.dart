@@ -9,8 +9,6 @@ import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:my_wallet/core/utils/hive/hive.dart';
-import 'package:my_wallet/src/domain/entity/hive/locale.hive.dart';
 import 'package:rxdart/rxdart.dart';
 
 import '../../generated/l10n.dart';

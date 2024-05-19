@@ -144,7 +144,7 @@ extension ExWidget on Widget {
 
 extension ExString on String {
   Widget wText({TextStyle? style, int? maxLength, TextAlign? textAlign, int? maxLines, TextOverflow? overflow}) => Text(
-        maxLength == null || maxLength == 0 || this.length > maxLength.abs() ? this : this.substring(0, maxLength.abs()) + '...',
+        maxLength == null || maxLength == 0 || length > maxLength.abs() ? this : '${this.substring(0, maxLength.abs())}...',
         style: style ?? AppStyle.normal,
         textAlign: textAlign,
         maxLines: maxLength,

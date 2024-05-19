@@ -109,6 +109,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "thoiGianTraNo": MessageLookupByLibrary.simpleMessage("Thời gian trả"),
         "thongKe": MessageLookupByLibrary.simpleMessage("Thống kê"),
         "tinhTheo": MessageLookupByLibrary.simpleMessage("Tính theo"),
+        "tong": MessageLookupByLibrary.simpleMessage("Tổng"),
         "total": m0,
         "tuanGanDay": MessageLookupByLibrary.simpleMessage("7 ngày qua"),
         "tuanNay": MessageLookupByLibrary.simpleMessage("Tuần này"),

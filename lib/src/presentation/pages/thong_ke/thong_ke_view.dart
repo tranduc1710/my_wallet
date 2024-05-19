@@ -78,8 +78,18 @@ class ThongKePage extends StatelessWidget {
                     );
                   }),
             ).wCenter(),
+            Container(
+              color: AppColor.divider,
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  AppLanguage.soTienHienTai.colon.wText(style: AppStyle.s16.copyWith(color: AppColor.textIcon, fontWeight: FontWeight.bold,)),
+                  Expanded(child: bloc.rxSoTienHT.value.wText(style: AppStyle.s16.copyWith(color: AppColor.primary, fontWeight: FontWeight.bold,))),
+                ],
+              ).wPadding(AppEdgeInsets.screen),
+            ),
             Row(
-              mainAxisAlignment: MainAxisAlignment.end,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 AppLanguage.locTheo.colon.wText(),
                 5.wSpaceWidth(),
@@ -96,7 +106,7 @@ class ThongKePage extends StatelessWidget {
                   onChanged: (value) => bloc.add(DoiLoaiTKEvent(value!)),
                 ),
               ],
-            ),
+            ).wPadding(AppEdgeInsets.screen),
             Expanded(
               child: SingleChildScrollView(
                 child: Column(
@@ -144,7 +154,7 @@ class ThongKePage extends StatelessWidget {
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Expanded(flex: 1, child: AppLanguage.soTienHienTai.colon.wText()),
+                        Expanded(flex: 1, child: AppLanguage.tong.colon.wText()),
                         Expanded(
                           flex: 3,
                           child: StreamBuilder(
@@ -161,10 +171,10 @@ class ThongKePage extends StatelessWidget {
                       ],
                     ),
                   ],
-                ),
+                ).wPadding(AppEdgeInsets.screen),
               ),
             ),
           ],
-        ).wPadding(AppEdgeInsets.screen);
+        );
       });
 }

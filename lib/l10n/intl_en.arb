@@ -1,6 +1,7 @@
 {
   "@@locale": "en",
   "appName": "My Wallet",
+  "tong": "Tổng", 
   "login": "Đăng nhập",
   "alert": "Thông báo",
   "close": "Đóng",
