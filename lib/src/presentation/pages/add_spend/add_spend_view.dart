@@ -270,7 +270,6 @@ class _AddSpendPageState extends State<AddSpendPage> with SingleTickerProviderSt
             AppTextField(
               controller: bloc.tfGhiChu,
               labelText: AppLanguage.ghiChu,
-              keyboardType: TextInputType.number,
             ).wPadding(AppEdgeInsets.vertical),
             5.wSpaceHeight(),
             AppDropdownTF(
@@ -393,7 +392,6 @@ class _AddSpendPageState extends State<AddSpendPage> with SingleTickerProviderSt
             AppTextField(
               controller: bloc.tfGhiChu,
               labelText: AppLanguage.ghiChu,
-              keyboardType: TextInputType.number,
             ).wPadding(AppEdgeInsets.vertical),
             5.wSpaceHeight(),
             AppDropdownTF(
@@ -613,7 +611,6 @@ class _AddSpendPageState extends State<AddSpendPage> with SingleTickerProviderSt
             AppTextField(
               controller: bloc.tfGhiChu,
               labelText: AppLanguage.ghiChu,
-              keyboardType: TextInputType.number,
             ).wPadding(AppEdgeInsets.vertical),
             5.wSpaceHeight(),
             AppDropdownTF(

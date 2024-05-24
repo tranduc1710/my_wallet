@@ -24,7 +24,7 @@ class AddSuccessPage extends StatelessWidget {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          .2.h.wSpaceHeight(),
+          20.wSpaceHeight(),
           FutureBuilder(
               future: Future.delayed(Duration.zero),
               builder: (context, snapshot) {
@@ -32,6 +32,7 @@ class AddSuccessPage extends StatelessWidget {
                   duration: Constant.timeAnimationShort,
                   scale: snapshot.connectionState == ConnectionState.done ? 1 : 0,
                   child: Column(
+                    mainAxisSize: MainAxisSize.min,
                     children: [
                       SvgPicture.asset(
                         'assets/icons/OK.svg',
@@ -48,7 +49,7 @@ class AddSuccessPage extends StatelessWidget {
                   ),
                 );
               }),
-          .2.h.wSpaceHeight(),
+          20.wSpaceHeight(),
           AppButton(
             text: AppLanguage.veTrangChu,
             onPressed: context.back,
